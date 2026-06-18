@@ -29,6 +29,9 @@ public class TeacherService {
         return teacherDao.save(teacher);
     }
 
+    public List<Teacher> searchTeacher(String expertise) {
+        return teacherDao.findByExpertiseContainingIgnoreCase(expertise);
+    }
     public Teacher updateTeacher(Long id, Teacher teacher) {
 
         Teacher existingTeacher = getTeacherById(id);

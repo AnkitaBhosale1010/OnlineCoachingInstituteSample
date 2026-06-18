@@ -16,17 +16,17 @@ public class StudentService {
 
 	    public List<Student> getAllStudents() {
 	        return studentDao.findAll();
-	    }
+	    }	
 
 	    public Student getStudent(Long id) {
 	        return studentDao.findById(id)
-	                .orElseThrow();
+	                .orElseThrow(() -> new RuntimeException("Student Not Found"));
 	    }
 
 	    public Student save(Student student) {
 	        return studentDao.save(student);
 	    }
-
+	    
 	    public Student update(Long id, Student student) {
 
 	        Student s = getStudent(id);

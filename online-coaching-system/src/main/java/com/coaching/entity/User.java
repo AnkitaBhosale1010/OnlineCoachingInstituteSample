@@ -1,6 +1,5 @@
 package com.coaching.entity;
 
-import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,24 +11,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "student")
+@Table(name = "user")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
-    private Long studentId;
+    private Long userId;
 
     private String name;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
-    private String phone;
-    private String address;
-    private LocalDate dob;
-    
-    @Column(name = "join_date")
-    private LocalDate joinDate;
+
+    private String role;
 }

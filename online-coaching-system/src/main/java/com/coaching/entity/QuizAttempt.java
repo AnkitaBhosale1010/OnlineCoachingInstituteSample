@@ -1,35 +1,36 @@
 package com.coaching.entity;
 
-import java.time.LocalDate;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "student")
+@Table(name = "quiz_attempt")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+public class QuizAttempt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
-    private Long studentId;
+    private Long attemptId;
 
-    private String name;
-    private String email;
-    private String password;
-    private String phone;
-    private String address;
-    private LocalDate dob;
-    
-    @Column(name = "join_date")
-    private LocalDate joinDate;
+    private String selectedAnswer;
+
+    private Integer obtainedMarks;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private QuizQuestion question;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 }

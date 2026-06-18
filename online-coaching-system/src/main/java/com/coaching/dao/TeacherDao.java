@@ -8,4 +8,6 @@ import com.coaching.entity.Teacher;
 public interface TeacherDao extends JpaRepository<Teacher, Long>{
 	
 	 Optional<Teacher> findByEmail(String email);
+	 
+	 List<Teacher> findByExpertiseContainingIgnoreCase(String expertise);
 }

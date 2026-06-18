@@ -14,7 +14,7 @@ public class Course {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = " course_id")
+	@Column(name = "course_id")
     private Long courseId;
 
     private String title;
@@ -28,7 +28,7 @@ public class Course {
 
     private BigDecimal price;
 
-    @Column(name = " created_date")
+    @Column(name = "created_date")
     private LocalDate createdDate;
     
     @ManyToOne

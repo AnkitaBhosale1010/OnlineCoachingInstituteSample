@@ -24,17 +24,21 @@ public class EnrollmentService {
     private final StudentDao studentDao;
     private final CourseDao courseDao;
 
-    public Enrollment enrollStudent(
-            Long studentId,
-            Long courseId) {
+    public Enrollment enrollStudent(Long studentId,Long courseId) {
 
-        Student student =
-        		studentDao.findById(studentId).orElseThrow(() ->
-                                new RuntimeException("Student Not Found"));
+        Student student = studentDao.findById(studentId)
+        		.orElseThrow(() -> new RuntimeException("Student Not Found"));
 
-        Course course =
-        		courseDao.findById(courseId).orElseThrow(() ->
-                                new RuntimeException("Course Not Found"));
+        Course course = courseDao.findById(courseId)
+        		.orElseThrow(() -> new RuntimeException("Course Not Found"));
+        
+        // Check if already enrolled
+        if (enrollmentDao
+                .findByStudentStudentIdAndCourseCourseId(studentId, courseId)
+                .isPresent()) {
+
+            throw new RuntimeException("Student already enrolled in this course");
+        }
 
         Enrollment enrollment = new Enrollment();
 
@@ -45,6 +49,7 @@ public class EnrollmentService {
 
         return enrollmentDao.save(enrollment);
     }
+    
 
     public List<Enrollment> getAllEnrollments() {
         return enrollmentDao.findAll();
@@ -69,4 +74,5 @@ public class EnrollmentService {
 
         enrollmentDao.save(enrollment);
     }
+    
 }
