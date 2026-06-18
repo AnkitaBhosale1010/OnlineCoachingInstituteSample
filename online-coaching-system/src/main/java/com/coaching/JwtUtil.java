@@ -28,7 +28,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    public String getEmailFromToken(String token) {
 
         return Jwts.parserBuilder()
                 .setSigningKey(getKey())
@@ -47,5 +47,14 @@ public class JwtUtil {
                 .getBody();
 
         return claims.get("role", String.class);
+    }
+    
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

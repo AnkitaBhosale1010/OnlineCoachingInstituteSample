@@ -1,7 +1,6 @@
 package com.coaching.controller;
 
 import java.util.List;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.coaching.entity.StudyMaterial;
 import com.coaching.service.StudyMaterialService;
 
+import java.io.File;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,8 +33,11 @@ public class StudyMaterialController {
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
-        return file.getOriginalFilename();
+    public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException{
+    	 String path = "uploads/" + file.getOriginalFilename();
+    	    file.transferTo(new File(path));
+
+    	    return path;
     }
     
     @GetMapping("/course/{courseId}")

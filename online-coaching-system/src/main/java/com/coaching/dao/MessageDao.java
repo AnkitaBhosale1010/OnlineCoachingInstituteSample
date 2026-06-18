@@ -6,9 +6,9 @@ import com.coaching.entity.Message;
 
 public interface MessageDao extends JpaRepository<Message, Long> {
 
-    List<Message> findByReceiverUserId(Long userId);
+	List<Message> findByReceiverUserIdOrderBySentAtDesc(Long userId);
 
-    List<Message> findBySenderIdAndReceiverUserId(
-            Long senderId,
-            Long userId);
+    List<Message> findBySenderUserIdAndReceiverUserId(
+            Long senderUserId,
+            Long receiverUserId);
 }
