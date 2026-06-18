@@ -25,7 +25,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
 
-    private Long senderId;
+    @ManyToOne
+    @JoinColumn(name="sender_id")
+    private User sender;
 
     @Column(length = 5000)
     private String message;
@@ -35,4 +37,6 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "receiver_id")
     private User receiver;
+
+	
 }

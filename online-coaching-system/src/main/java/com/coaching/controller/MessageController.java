@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.coaching.dto.MessageRequest;
 import com.coaching.entity.Message;
 import com.coaching.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +21,9 @@ public class MessageController {
     private final MessageService service;
 
     @PostMapping
-    public Message sendMessage(@RequestBody Message message){
+    public Message sendMessage(@RequestBody MessageRequest request){
 
-        return service.sendMessage(message);
+        return service.sendMessage(request);
     }
 
     @GetMapping("/inbox/{userId}")
