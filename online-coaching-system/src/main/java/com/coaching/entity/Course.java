@@ -5,6 +5,8 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "course")
 @Data
@@ -33,6 +35,7 @@ public class Course {
     
     @ManyToOne
     @JoinColumn(name = "teacher_id")
+    @JsonIgnore
     private Teacher teacher;
     
     

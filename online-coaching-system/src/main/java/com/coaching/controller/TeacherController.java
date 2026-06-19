@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.coaching.dto.TeacherRequest;
 import com.coaching.entity.Teacher;
 import com.coaching.service.TeacherService;
 import lombok.RequiredArgsConstructor;
@@ -23,40 +25,29 @@ public class TeacherController {
 	
 	 private final TeacherService teacherService;
 
+	 @PostMapping
+	    public Teacher createTeacher(@RequestBody TeacherRequest request){
+
+	        return teacherService.createTeacher(request);
+	    }
+
 	    @GetMapping
-	    public List<Teacher> getAllTeachers() {
+	    public List<Teacher> getAllTeachers(){
+
 	        return teacherService.getAllTeachers();
 	    }
 
 	    @GetMapping("/{id}")
-	    public Teacher getTeacher(@PathVariable Long id) {
-	        return teacherService.getTeacherById(id);
-	    }
+	    public Teacher getTeacherById(
+	            @PathVariable Long id){
 
-	    @PostMapping
-	    public Teacher addTeacher(@RequestBody Teacher teacher) {
-	        return teacherService.saveTeacher(teacher);
+	        return teacherService.getTeacherById(id);
 	    }
 	    
 	    @GetMapping("/search")
-	    public List<Teacher> searchTeacher(@RequestParam String expertise) {
+	    public List<Teacher> searchTeacher(
+	            @RequestParam String expertise) {
 
 	        return teacherService.searchTeacher(expertise);
-	    }
-
-	    @PutMapping("/{id}")
-	    public Teacher updateTeacher(
-	            @PathVariable Long id,
-	            @RequestBody Teacher teacher) {
-
-	        return teacherService.updateTeacher(id, teacher);
-	    }
-
-	    @DeleteMapping("/{id}")
-	    public String deleteTeacher(@PathVariable Long id) {
-
-	        teacherService.deleteTeacher(id);
-
-	        return "Teacher Deleted Successfully";
 	    }
 }

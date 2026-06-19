@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.coaching.entity.Teacher;
 
 public interface TeacherDao extends JpaRepository<Teacher, Long>{
-	
-	 Optional<Teacher> findByEmail(String email);
 	 
-	 List<Teacher> findByExpertiseContainingIgnoreCase(String expertise);
+	List<Teacher> findByExpertiseContainingIgnoreCase(String expertise);
 }
