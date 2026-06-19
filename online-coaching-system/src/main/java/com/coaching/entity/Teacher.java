@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "teacher")
+	@Table(name = "teacher")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,26 +14,14 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "teacher_id")
     private Long teacherId;
 
-    private String name;
-
-    @Column(unique = true)
-    private String email;
-
-    private String password;
-
-    private String phone;
-
-    private String qualification;
-
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    
     private String expertise;
-
-    @Column(name = " join_date")
+    private String qualification;
+    private String phone;
     private LocalDate joinDate;
-    
-    @OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
-    private List<Course> courses;
-    
 }

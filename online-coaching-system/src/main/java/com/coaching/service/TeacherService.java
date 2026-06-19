@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.coaching.dao.TeacherDao;
+import com.coaching.dao.UserDao;
+import com.coaching.dto.TeacherRequest;
 import com.coaching.entity.Teacher;
+import com.coaching.entity.User;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -15,37 +18,42 @@ import lombok.RequiredArgsConstructor;
 public class TeacherService {
 	
 	private final TeacherDao teacherDao;
+	private final UserDao userDao;
 
-    public List<Teacher> getAllTeachers() {
-        return teacherDao.findAll();
-    }
+	public Teacher createTeacher(TeacherRequest request){
 
-    public Teacher getTeacherById(Long id) {
-        return teacherDao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Teacher Not Found"));
-    }
+        User user = new User();
 
-    public Teacher saveTeacher(Teacher teacher) {
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole("TEACHER");
+
+        user = userDao.save(user);
+
+        Teacher teacher = new Teacher();
+
+        teacher.setUser(user);
+        teacher.setExpertise(request.getExpertise());
+        teacher.setQualification(request.getQualification());
+        teacher.setPhone(request.getPhone());
+        teacher.setJoinDate(request.getJoinDate());
+
         return teacherDao.save(teacher);
     }
 
+    public List<Teacher> getAllTeachers(){
+        return teacherDao.findAll();
+    }
+    
     public List<Teacher> searchTeacher(String expertise) {
-        return teacherDao.findByExpertiseContainingIgnoreCase(expertise);
-    }
-    public Teacher updateTeacher(Long id, Teacher teacher) {
-
-        Teacher existingTeacher = getTeacherById(id);
-
-        existingTeacher.setName(teacher.getName());
-        existingTeacher.setEmail(teacher.getEmail());
-        existingTeacher.setPhone(teacher.getPhone());
-        existingTeacher.setQualification(teacher.getQualification());
-        existingTeacher.setExpertise(teacher.getExpertise());
-
-        return teacherDao.save(existingTeacher);
+        return teacherDao
+                .findByExpertiseContainingIgnoreCase(expertise);
     }
 
-    public void deleteTeacher(Long id) {
-    	teacherDao.deleteById(id);
-    }
-}
+    public Teacher getTeacherById(Long id){
+
+        return teacherDao.findById(id)
+                .orElseThrow(() ->
+                new RuntimeException("Teacher Not Found"));
+    }}

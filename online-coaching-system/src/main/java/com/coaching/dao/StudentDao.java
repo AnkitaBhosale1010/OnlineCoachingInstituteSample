@@ -8,6 +8,5 @@ import com.coaching.entity.Student;
 @Repository
 public interface StudentDao extends JpaRepository<Student, Long>{
 	
-	Optional<Student> findByEmail(String email);
 
 }
