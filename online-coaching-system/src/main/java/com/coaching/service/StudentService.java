@@ -1,6 +1,8 @@
 package com.coaching.service;
 
 import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.coaching.dao.StudentDao;
 import com.coaching.dao.UserDao;
@@ -18,6 +20,7 @@ public class StudentService {
 	
 	 private final StudentDao studentDao;
 	 private final UserDao userDao;
+	 private final PasswordEncoder passwordEncoder;
 
 	 public Student createStudent(
 	            StudentRequest request){
@@ -26,7 +29,7 @@ public class StudentService {
 
 	        user.setName(request.getName());
 	        user.setEmail(request.getEmail());
-	        user.setPassword(request.getPassword());
+	        user.setPassword(passwordEncoder.encode(request.getPassword()));
 	        user.setRole("STUDENT");
 
 	        user = userDao.save(user);

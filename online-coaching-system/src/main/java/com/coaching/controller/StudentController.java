@@ -3,6 +3,9 @@ package com.coaching.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coaching.dto.StudentRequest;
+import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Student;
 import com.coaching.service.StudentService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,20 +31,35 @@ public class StudentController {
 	private final StudentService studentService;
 
 	@PostMapping
-    public Student createStudent(@RequestBody StudentRequest request){
+	public ResponseEntity<ApiResponse<Student>> createStudent(@Valid @RequestBody StudentRequest request){
 
-        return studentService.createStudent(request);
-    }
+	    Student student = studentService.createStudent(request);
 
-    @GetMapping
-    public List<Student> getAllStudents(){
+	    return ResponseEntity.status(HttpStatus.CREATED)
 
-        return studentService.getAllStudents();
-    }
+	            .body(new ApiResponse<>(true,"Student Created Successfully",student));
 
-    @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable Long id){
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping
+	public ResponseEntity<ApiResponse<List<Student>>> getAllStudents(){
 
-        return studentService.getStudentById(id);
-    }
+	    return ResponseEntity.ok(
+
+	            new ApiResponse<>(true,"Student List",studentService.getAllStudents()));
+
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+	@GetMapping("/{id}")
+	public ResponseEntity<ApiResponse<Student>> getStudentById(@PathVariable Long id){
+
+	    Student student = studentService.getStudentById(id);
+
+	    return ResponseEntity.ok(
+
+	            new ApiResponse<>(true,"Student Found",student));
+
+	}
 }

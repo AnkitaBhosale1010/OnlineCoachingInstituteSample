@@ -1,6 +1,8 @@
 package com.coaching.controller;
 
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coaching.dto.MarksDto;
 import com.coaching.entity.Submission;
 import com.coaching.service.SubmissionService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,6 +24,7 @@ public class SubmissionController {
 	
 	private final SubmissionService submissionService;
 
+	@PreAuthorize("hasRole('STUDENT')")
     @PostMapping("/assignment/{assignmentId}/student/{studentId}")
     public Submission submitAssignment(
             @PathVariable Long assignmentId,
@@ -41,8 +46,9 @@ public class SubmissionController {
         return submissionService.getStudentSubmissions(studentId);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     @PutMapping("/{submissionId}/marks")
-    public Submission giveMarks(@PathVariable Long submissionId,@RequestBody MarksDto dto) {
+    public Submission giveMarks(@PathVariable Long submissionId,@Valid @RequestBody MarksDto dto) {
 
         return submissionService.giveMarks(
                 submissionId,

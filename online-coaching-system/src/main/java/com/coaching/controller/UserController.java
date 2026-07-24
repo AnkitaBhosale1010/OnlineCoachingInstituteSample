@@ -1,7 +1,7 @@
 package com.coaching.controller;
 
 import java.util.List;
-
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,5 +29,12 @@ public class UserController {
     public User getUserById(@PathVariable Long id){
 
         return userService.getUserById(id);
+    }
+    
+    @GetMapping("/profile")
+    public String profile(Authentication authentication){
+
+        return authentication.getName();
+
     }
 }

@@ -1,6 +1,10 @@
 package com.coaching.controller;
 
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Assignment;
 import com.coaching.service.AssignmentService;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +26,18 @@ public class AssignmentController {
 
 	private final AssignmentService assignmentService;
 
+	@PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     @PostMapping("/course/{courseId}")
-    public Assignment createAssignment(@PathVariable Long courseId,@RequestBody Assignment assignment) {
+    public ResponseEntity<ApiResponse<Assignment>> createAssignment(@PathVariable Long courseId,@RequestBody Assignment assignment) {
 
-        return assignmentService.createAssignment(courseId, assignment);
+		Assignment saved = assignmentService.createAssignment(courseId,assignment);
+
+	    return ResponseEntity.status(HttpStatus.CREATED)
+	            .body(
+	                    new ApiResponse<>(
+	                            true,
+	                            "Assignment Created",
+	                            saved));
     }
 
     @GetMapping("/course/{courseId}")

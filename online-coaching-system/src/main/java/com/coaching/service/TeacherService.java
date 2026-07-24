@@ -2,6 +2,7 @@ package com.coaching.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.coaching.dao.TeacherDao;
 import com.coaching.dao.UserDao;
@@ -19,6 +20,7 @@ public class TeacherService {
 	
 	private final TeacherDao teacherDao;
 	private final UserDao userDao;
+	private final PasswordEncoder passwordEncoder;
 
 	public Teacher createTeacher(TeacherRequest request){
 
@@ -26,7 +28,7 @@ public class TeacherService {
 
         user.setName(request.getName());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole("TEACHER");
 
         user = userDao.save(user);

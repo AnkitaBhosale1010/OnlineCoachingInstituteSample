@@ -20,7 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
-        User user = userDao.findByEmail(email).orElseThrow();
+        User user = userDao.findByEmail(email).orElseThrow(()->
+                                   new UsernameNotFoundException("User Not Found"));
 
         return org.springframework.security.core.userdetails
                 .User.builder()
