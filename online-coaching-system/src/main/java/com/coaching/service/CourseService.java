@@ -6,6 +6,7 @@ import com.coaching.dao.CourseDao;
 import com.coaching.dao.TeacherDao;
 import com.coaching.entity.Course;
 import com.coaching.entity.Teacher;
+import com.coaching.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +26,7 @@ public class CourseService {
 
 	        return courseRepository.findById(id)
 	                .orElseThrow(() ->
-	                        new RuntimeException("Course Not Found"));
+	                        new ResourceNotFoundException("Course Not Found"));
 	    }
 
 	    public Course createCourse(

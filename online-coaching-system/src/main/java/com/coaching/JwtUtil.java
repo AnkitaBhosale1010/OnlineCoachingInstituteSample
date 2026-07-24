@@ -1,5 +1,5 @@
 package com.coaching;
-
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -17,7 +17,28 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    public String generateToken(String email, String role) {
+//    // Extract all claims
+//    public Claims extractClaims(String token) {
+//
+//        return Jwts.parserBuilder()
+//                .setSigningKey(getKey())
+//                .build()
+//                .parseClaimsJws(token)
+//                .getBody();
+//    }
+//
+//    // Extract username
+//    public String extractUsername(String token) {
+//        return extractClaims(token).getSubject();
+//    }
+//
+//    // Extract role
+//    public String extractRole(String token) {
+//        return extractClaims(token).get("role", String.class);
+//    }
+
+    // Generate JWT
+	public String generateToken(String email, String role) {
 
         return Jwts.builder()
                 .setSubject(email)
@@ -38,23 +59,44 @@ public class JwtUtil {
                 .getSubject();
     }
     
-    public String extractRole(String token) {
+    public String getRoleFromToken(String token) {
 
-        Claims claims = Jwts.parserBuilder()
+    	return  Jwts.parserBuilder()
                 .setSigningKey(getKey())
                 .build()
                 .parseClaimsJws(token)
-                .getBody();
-
-        return claims.get("role", String.class);
+                .getBody()
+                .get("role", String.class);
     }
     
+    // Validate JWT
     public boolean validateToken(String token) {
+
         try {
-            Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
+
+            Jwts.parserBuilder()
+                    .setSigningKey(getKey())
+                    .build()
+                    .parseClaimsJws(token);
+
             return true;
+
+        } catch (ExpiredJwtException e) {
+
+            System.out.println("Token Expired");
+            return false;
+
         } catch (Exception e) {
+
             return false;
         }
     }
+
+//    // Check expiry
+//    private boolean isTokenExpired(String token) {
+//
+//        return extractClaims(token)
+//                .getExpiration()
+//                .before(new Date());
+//    }
 }

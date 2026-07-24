@@ -1,6 +1,8 @@
 package com.coaching.controller;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.coaching.dto.QuizAnswerDto;
+import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Quiz;
 import com.coaching.entity.QuizAttempt;
 import com.coaching.entity.QuizQuestion;
 import com.coaching.service.QuestionService;
 import com.coaching.service.QuizService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -55,9 +60,14 @@ public class QuizController {
 	    }
 
 	    @PostMapping("/submit")
-	    public QuizAttempt submitAnswer(
-	            @RequestBody QuizAnswerDto dto) {
+	    public ResponseEntity<ApiResponse<QuizAttempt>> submitAnswer(@Valid @RequestBody QuizAnswerDto dto) {
 
-	        return questionService.submitAnswer(dto);
+	    	QuizAttempt result = questionService.submitAnswer(dto);
+
+	        return ResponseEntity.ok(
+	                new ApiResponse<>(
+	                        true,
+	                        "Quiz Submitted Successfully",
+	                        result));
 	    }
 }

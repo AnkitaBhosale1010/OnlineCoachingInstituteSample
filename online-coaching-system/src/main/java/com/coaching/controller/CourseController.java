@@ -1,6 +1,10 @@
 package com.coaching.controller;
 
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Course;
 import com.coaching.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +30,12 @@ public class CourseController {
 	 private final CourseService courseService;
 
 	    @GetMapping
-	    public List<Course> getAllCourses() {
-	        return courseService.getAllCourses();
+	    public ResponseEntity<ApiResponse<List<Course>>> getAllCourses() {
+	    	 return ResponseEntity.ok(
+	    	            new ApiResponse<>(
+	    	                    true,
+	    	                    "Course List",
+	    	                    courseService.getAllCourses()));
 	    }
 
 	    @GetMapping("/{id}")
@@ -35,13 +45,19 @@ public class CourseController {
 	        return courseService.getCourse(id);
 	    }
 
+	    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
 	    @PostMapping("/teacher/{teacherId}")
-	    public Course addCourse(
+	    public ResponseEntity<ApiResponse<Course>> addCourse(
 	            @PathVariable Long teacherId,
 	            @RequestBody Course course) {
 
-	        return courseService
-	                .createCourse(course, teacherId);
+	    	Course saved = courseService.createCourse(course,teacherId);
+
+	        return ResponseEntity.status(HttpStatus.CREATED)
+	                .body(new ApiResponse<>(
+	                                true,
+	                                "Course Created Successfully",
+	                                saved));
 	    }
 
 	    @PutMapping("/{id}")
@@ -54,12 +70,16 @@ public class CourseController {
 	    }
 
 	    @DeleteMapping("/{id}")
-	    public String deleteCourse(
+	    public ResponseEntity<ApiResponse<Void>> deleteCourse(
 	            @PathVariable Long id) {
 
 	        courseService.deleteCourse(id);
 
-	        return "Course Deleted Successfully";
+	        return ResponseEntity.ok(
+	                new ApiResponse<>(
+	                        true,
+	                        "Course Deleted Successfully",
+	                        null));
 	    }
 
 	    @GetMapping("/search")
