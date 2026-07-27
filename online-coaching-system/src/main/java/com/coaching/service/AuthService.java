@@ -75,7 +75,7 @@ public class AuthService {
 
     	            user.getRole());
 
-    	    return new AuthResponse(token);
+    	    return new AuthResponse(token,user.getName(),user.getEmail(),user.getRole());
     }
     
     public String changePassword(
