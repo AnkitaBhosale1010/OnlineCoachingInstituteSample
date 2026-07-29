@@ -1,4 +1,4 @@
-package com.coaching.dao;
+	package com.coaching.dao;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
