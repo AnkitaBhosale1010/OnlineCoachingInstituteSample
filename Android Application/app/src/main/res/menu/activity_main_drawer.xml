@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="Home"
+        android:icon="@android:drawable/ic_menu_view"/>
+
+    <item
+        android:id="@+id/nav_courses"
+        android:title="Courses"
+        android:icon="@android:drawable/ic_menu_agenda"/>
+
+    <item
+        android:id="@+id/nav_batches"
+        android:title="Batches"
+        android:icon="@android:drawable/ic_menu_my_calendar"/>
+
+    <item
+        android:id="@+id/nav_assignments"
+        android:title="Assignments"
+        android:icon="@android:drawable/ic_menu_edit"/>
+    <item
+        android:id="@+id/nav_messages"
+        android:title="Messages"
+        android:icon="@android:drawable/ic_dialog_email"/>
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profile"
+        android:icon="@android:drawable/ic_menu_myplaces"/>
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout"
+        android:icon="@android:drawable/ic_lock_power_off"/>
+
+</menu>

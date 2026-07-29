@@ -40,6 +40,26 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
     implementation(libs.material)
+    // RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // OkHttp
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
+    implementation("androidx.drawerlayout:drawerlayout:1.2.0")
+    implementation("androidx.navigation:navigation-fragment:2.9.3")
+    implementation("androidx.navigation:navigation-ui:2.9.3")
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
