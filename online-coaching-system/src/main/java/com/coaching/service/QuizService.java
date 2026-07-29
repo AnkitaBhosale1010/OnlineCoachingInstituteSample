@@ -1,9 +1,8 @@
 package com.coaching.service;
 
 import java.util.List;
-
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
-
 import com.coaching.dao.CourseDao;
 import com.coaching.dao.QuizAttemptDao;
 import com.coaching.dao.QuizDao;
@@ -15,7 +14,6 @@ import com.coaching.entity.Quiz;
 import com.coaching.entity.QuizAttempt;
 import com.coaching.entity.QuizQuestion;
 import com.coaching.entity.Student;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -46,6 +44,15 @@ public class QuizService {
         question.setQuiz(quiz);
 
         return quizQuestionDao.save(question);
+    }
+    
+    public List<QuizQuestion> getQuizQuestions(Long quizId) {
+
+        Quiz quiz = quizDao.findById(quizId)
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+
+        return quizQuestionDao.findByQuizQuizId(quiz.getQuizId());
+
     }
     
     public QuizAttempt submitAnswer(QuizAnswerDto dto){
@@ -83,4 +90,5 @@ public class QuizService {
     public Quiz getQuiz(Long id) {
         return quizDao.findById(id).orElseThrow();
     }
+
 }

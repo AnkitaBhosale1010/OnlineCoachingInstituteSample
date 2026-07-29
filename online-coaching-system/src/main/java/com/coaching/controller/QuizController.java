@@ -24,39 +24,46 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/quizzes")
 @RequiredArgsConstructor
 public class QuizController {
-	 private final QuizService quizService;
+	
+	    private final QuizService quizService;
+	    
 	    private final QuestionService questionService;
 
 	    @PostMapping("/course/{courseId}")
-	    public Quiz createQuiz(
-	            @PathVariable Long courseId,
-	            @RequestBody Quiz quiz) {
+	    public ResponseEntity<Quiz> createQuiz(@PathVariable Long courseId,@RequestBody Quiz quiz) {
 
-	        return quizService.createQuiz(courseId, quiz);
+	    	 return ResponseEntity.ok(
+	                 quizService.createQuiz(courseId, quiz));
 	    }
 
 	    @GetMapping("/course/{courseId}")
-	    public List<Quiz> getCourseQuiz(
-	            @PathVariable Long courseId) {
+	    public List<Quiz> getCourseQuiz(@PathVariable Long courseId) {
 
 	        return quizService.getCourseQuiz(courseId);
 	    }
 
-	    @GetMapping("/{id}")
-	    public Quiz getQuiz(
-	            @PathVariable Long id) {
+	    @GetMapping("/{quizId}")
+	    public ResponseEntity<Quiz> getQuiz(@PathVariable Long quizId){
 
-	        return quizService.getQuiz(id);
+	        return ResponseEntity.ok(
+	                quizService.getQuiz(quizId));
 	    }
 
 	    @PostMapping("/{quizId}/questions")
-	    public QuizQuestion addQuestion(
+	    public ResponseEntity<QuizQuestion> addQuestion(
 	            @PathVariable Long quizId,
-	            @RequestBody QuizQuestion question) {
+	            @RequestBody QuizQuestion question){
 
-	        return questionService.addQuestion(
-	                quizId,
-	                question);
+	        return ResponseEntity.ok(
+	                quizService.addQuestion(quizId, question));
+	    }
+	    
+	    @GetMapping("/{quizId}/questions")
+	    public ResponseEntity<List<QuizQuestion>> getQuizQuestions(
+	            @PathVariable Long quizId){
+
+	        return ResponseEntity.ok(
+	                quizService.getQuizQuestions(quizId));
 	    }
 
 	    @PostMapping("/submit")
