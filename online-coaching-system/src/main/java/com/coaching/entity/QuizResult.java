@@ -21,6 +21,7 @@ public class QuizResult {
 
 	    private Integer wrongAnswers;
 
+	    @Column(name = "total_marks")
 	    private Integer totalMarks;
 
 	    @ManyToOne
