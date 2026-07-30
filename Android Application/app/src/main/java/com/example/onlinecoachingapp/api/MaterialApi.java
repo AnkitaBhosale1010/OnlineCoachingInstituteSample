@@ -13,3 +13,4 @@ public interface MaterialApi {
             @Path("courseId") Long courseId
     );
 }
+

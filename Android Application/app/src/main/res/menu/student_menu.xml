@@ -27,6 +27,11 @@
         android:title="Assignments" />
 
     <item
+        android:id="@+id/nav_quiz"
+        android:title="Quiz"
+        android:icon="@android:drawable/ic_menu_edit"/>
+
+    <item
         android:id="@+id/nav_profile"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="Profile" />
