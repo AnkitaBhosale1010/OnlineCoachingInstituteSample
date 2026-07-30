@@ -27,7 +27,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-      public AuthResponse  register(RegisterRequest request) {
+      public AuthResponse register(RegisterRequest request) {
 
     	// Check if email already exists
         if(userDao.existsByEmail(request.getEmail())) {

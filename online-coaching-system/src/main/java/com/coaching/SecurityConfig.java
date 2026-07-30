@@ -76,8 +76,7 @@ public class SecurityConfig {
 
              // TEACHER or ADMIN
              .requestMatchers("/api/teachers/**",
-                              "/api/courses/teacher/**",
-            		 		  "/api/materials/**")
+                              "/api/courses/teacher/**")
              .hasAnyRole("ADMIN", "TEACHER")
 
              // STUDENT or ADMIN
@@ -87,7 +86,8 @@ public class SecurityConfig {
              .hasAnyRole("ADMIN", "STUDENT")
              
              .requestMatchers("/api/batches/**",
-                                "/api/assignments/**")
+                               "/api/assignments/**",
+            		          "/api/materials/**")
              .hasAnyRole("ADMIN", "TEACHER", "STUDENT")
              
 //             .requestMatchers("/api/users/**")
