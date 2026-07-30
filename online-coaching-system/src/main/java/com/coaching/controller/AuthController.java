@@ -24,14 +24,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<String>> register(@Valid @RequestBody RegisterRequest request){
+    public ResponseEntity<ApiResponse<AuthResponse>> register(
+            @Valid @RequestBody RegisterRequest request) {
 
-        String message = authService.register(request);
+        AuthResponse response = authService.register(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-
-                .body(new ApiResponse<>(true,message,null));
-
+                .body(new ApiResponse<>(true, "Registration Successful", response));
     }
     
     @PostMapping("/login")

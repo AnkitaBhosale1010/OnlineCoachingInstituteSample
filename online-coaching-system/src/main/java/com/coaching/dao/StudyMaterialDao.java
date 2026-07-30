@@ -6,6 +6,5 @@ import com.coaching.entity.StudyMaterial;
 
 public interface StudyMaterialDao extends JpaRepository<StudyMaterial, Long> {
 
-    List<StudyMaterial> findByCourseCourseId(
-            Long courseId);
+    List<StudyMaterial> findByCourseCourseId(Long courseId);
 }
