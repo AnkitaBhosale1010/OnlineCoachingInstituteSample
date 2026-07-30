@@ -87,6 +87,12 @@ public class SecurityConfig {
             		 		  "/api/submissions/**")
              .hasAnyRole("ADMIN", "STUDENT")
              
+             .requestMatchers("/api/batches/**")
+             .hasAnyRole("ADMIN","TEACHER")
+
+             .requestMatchers("/api/batches/**")
+             .hasRole("ADMIN")
+
 //             .requestMatchers("/api/users/**")
 //             .hasAnyRole("ADMIN","TEACHER","STUDENT")
 
