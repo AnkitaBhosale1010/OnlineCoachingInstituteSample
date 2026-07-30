@@ -12,6 +12,7 @@ import com.example.onlinecoachingapp.fragments.AssignmentFragment;
 import com.example.onlinecoachingapp.fragments.BatchFragment;
 import com.example.onlinecoachingapp.fragments.CourseFragment;
 import com.example.onlinecoachingapp.fragments.HomeFragment;
+import com.example.onlinecoachingapp.fragments.MaterialFragment;
 import com.example.onlinecoachingapp.fragments.ProfileFragment;
 import com.example.onlinecoachingapp.session.SessionManager;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -117,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.frameLayout, new BatchFragment())
                         .commit();
+
+            }else if (id == R.id.nav_material) {
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameLayout, new MaterialFragment())
+                            .commit();
 
             } else if (id == R.id.nav_assignments) {
 
