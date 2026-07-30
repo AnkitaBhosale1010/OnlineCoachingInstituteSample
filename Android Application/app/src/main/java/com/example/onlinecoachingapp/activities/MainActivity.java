@@ -14,6 +14,7 @@ import com.example.onlinecoachingapp.fragments.CourseFragment;
 import com.example.onlinecoachingapp.fragments.HomeFragment;
 import com.example.onlinecoachingapp.fragments.MaterialFragment;
 import com.example.onlinecoachingapp.fragments.ProfileFragment;
+import com.example.onlinecoachingapp.fragments.QuizFragment;
 import com.example.onlinecoachingapp.session.SessionManager;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -132,6 +133,13 @@ public class MainActivity extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.frameLayout, new AssignmentFragment())
                         .commit();
+            } else if(id == R.id.nav_quiz){
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameLayout,
+                                    new QuizFragment())
+                            .commit();
 
             } else if (id == R.id.nav_profile) {
 
