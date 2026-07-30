@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.onlinecoachingapp.R;
+import com.example.onlinecoachingapp.fragments.AssignmentFragment;
+import com.example.onlinecoachingapp.fragments.BatchFragment;
+import com.example.onlinecoachingapp.fragments.CourseFragment;
 import com.example.onlinecoachingapp.fragments.HomeFragment;
+import com.example.onlinecoachingapp.fragments.ProfileFragment;
 import com.example.onlinecoachingapp.session.SessionManager;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -98,29 +101,48 @@ public class MainActivity extends AppCompatActivity {
 
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frameLayout,
-                                new HomeFragment())
+                        .replace(R.id.frameLayout, new HomeFragment())
+                        .commit();
+
+            } else if (id == R.id.nav_courses) {
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, new CourseFragment())
+                        .commit();
+
+            } else if (id == R.id.nav_batches) {
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, new BatchFragment())
+                        .commit();
+
+            } else if (id == R.id.nav_assignments) {
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, new AssignmentFragment())
+                        .commit();
+
+            } else if (id == R.id.nav_profile) {
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, new ProfileFragment())
                         .commit();
 
             } else if (id == R.id.nav_logout) {
 
                 sessionManager.logout();
 
-                Intent intent =
-                        new Intent(
-                                MainActivity.this,
-                                LoginActivity.class);
-
-                startActivity(intent);
-
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
-
             }
 
             drawerLayout.closeDrawers();
 
             return true;
-
         });
     }
 }

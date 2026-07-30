@@ -56,7 +56,9 @@ dependencies {
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
-
+    implementation("androidx.gridlayout:gridlayout:1.1.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation("androidx.navigation:navigation-fragment:2.9.3")
     implementation("androidx.navigation:navigation-ui:2.9.3")

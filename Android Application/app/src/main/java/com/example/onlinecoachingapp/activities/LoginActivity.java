@@ -53,8 +53,12 @@ public class LoginActivity extends AppCompatActivity {
 //            finish();
 //        }
 
+//        apiService = ApiClient
+//                .getRetrofitInstance()
+//                .create(ApiService.class);
+
         apiService = ApiClient
-                .getRetrofitInstance()
+                .getRetrofitInstance(this)
                 .create(ApiService.class);
 
         btnLogin.setOnClickListener(v -> loginUser());

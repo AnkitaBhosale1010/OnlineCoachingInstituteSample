@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 	
-	private final UserDao userDao = null;
+	private final UserDao userDao;
 
     public List<User> getAllUsers() {
         return userDao.findAll();

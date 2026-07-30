@@ -9,5 +9,7 @@ import com.coaching.entity.Student;
 public interface StudentDao extends JpaRepository<Student, Long>{
 	
 	 List<Student> findByBatchId(Long batchId);
+	 
+	 Optional<Student> findByUserUserId(Long userId);
 
 }

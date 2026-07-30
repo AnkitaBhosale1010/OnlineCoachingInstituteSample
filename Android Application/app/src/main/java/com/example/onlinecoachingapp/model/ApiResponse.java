@@ -5,9 +5,6 @@ public class ApiResponse<T> {
     private String message;
     private T data;
 
-    public ApiResponse() {
-    }
-
     public boolean isSuccess() {
         return success;
     }
@@ -20,15 +17,4 @@ public class ApiResponse<T> {
         return data;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }

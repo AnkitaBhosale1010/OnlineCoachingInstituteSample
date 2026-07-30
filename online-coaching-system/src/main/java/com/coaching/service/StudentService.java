@@ -55,4 +55,13 @@ public class StudentService {
 	                .orElseThrow(() ->
 	                new RuntimeException("Student Not Found"));
 	    }
+	    
+	    public Student getStudentByEmail(String email) {
+
+	        User user = userDao.findByEmail(email)
+	                .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+	        return studentDao.findByUserUserId(user.getUserId())
+	                .orElseThrow(() -> new RuntimeException("Student Not Found"));
+	    }
 }
