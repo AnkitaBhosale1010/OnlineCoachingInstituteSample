@@ -2,6 +2,7 @@ package com.example.onlinecoachingapp.api;
 
 import com.example.onlinecoachingapp.model.ApiResponse;
 import com.example.onlinecoachingapp.model.AuthResponse;
+import com.example.onlinecoachingapp.model.Batch;
 import com.example.onlinecoachingapp.model.Course;
 import com.example.onlinecoachingapp.model.LoginRequest;
 import com.example.onlinecoachingapp.model.RegisterRequest;
@@ -19,8 +20,5 @@ public interface ApiService {
 
     @POST("api/auth/login")
     Call<ApiResponse<AuthResponse>> login(@Body LoginRequest request);
-
-    @GET("api/course")
-    Call<ApiResponse<List<Course>>> getAllCourses();
 
 }

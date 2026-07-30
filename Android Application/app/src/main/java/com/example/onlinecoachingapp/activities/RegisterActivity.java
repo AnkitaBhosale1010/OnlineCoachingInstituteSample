@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         spinnerRole.setAdapter(adapter);
 
         // Initialize Retrofit
-        apiService = ApiClient.getRetrofitInstance()
+        apiService = ApiClient.getRetrofitInstance(this)
                 .create(ApiService.class);
 
         // Register Button
