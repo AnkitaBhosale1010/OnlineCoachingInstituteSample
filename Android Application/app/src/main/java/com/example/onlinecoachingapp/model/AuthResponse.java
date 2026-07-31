@@ -1,6 +1,7 @@
 package com.example.onlinecoachingapp.model;
 
 public class AuthResponse {
+    private Long userId;
     private String token;
     private String name;
     private String email;
@@ -9,11 +10,20 @@ public class AuthResponse {
     public AuthResponse() {
     }
 
-    public AuthResponse(String token, String name, String email, String role) {
+    public AuthResponse(Long userId, String token, String name, String email, String role) {
+        this.userId = userId;
         this.token = token;
         this.name = name;
         this.email = email;
         this.role = role;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getToken() {

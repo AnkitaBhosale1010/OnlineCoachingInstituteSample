@@ -2,6 +2,7 @@ package com.coaching;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -88,11 +89,15 @@ public class SecurityConfig {
              
              .requestMatchers("/api/batches/**",
                                "/api/assignments/**",
-            		          "/api/materials/**")
+            		          "/api/materials/**",
+            		          "/api/messages/**")
              .hasAnyRole("ADMIN", "TEACHER", "STUDENT")
              
-//             .requestMatchers("/api/users/**")
-//             .hasAnyRole("ADMIN","TEACHER","STUDENT")
+             .requestMatchers(HttpMethod.POST, "/api/attendance/**")
+             .hasAnyRole("ADMIN", "TEACHER")
+
+             .requestMatchers(HttpMethod.GET, "/api/attendance/**")
+             .hasAnyRole("ADMIN", "TEACHER", "STUDENT")
 
              // Login required
              .anyRequest()

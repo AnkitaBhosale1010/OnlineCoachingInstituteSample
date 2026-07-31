@@ -1,34 +1,31 @@
 package com.coaching.entity;
 
+import java.time.LocalDate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "quiz_result")
+@Table(name = "attendance")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuizResult {
+public class Attendance {
+
 	 @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long resultId;
+	    private Long attendanceId;
 
-	    private Integer totalQuestions;
+	    private LocalDate attendanceDate;
 
-	    private Integer correctAnswers;
-
-	    private Integer wrongAnswers;
-
-	    @Column(name = "total_marks")
-	    private Integer totalMarks;
-
-	    @ManyToOne
-	    @JoinColumn(name = "quiz_id")
-	    private Quiz quiz;
+	    private String status;      // PRESENT / ABSENT
 
 	    @ManyToOne
 	    @JoinColumn(name = "student_id")
 	    private Student student;
+
+	    @ManyToOne
+	    @JoinColumn(name = "course_id")
+	    private Course course;
 }

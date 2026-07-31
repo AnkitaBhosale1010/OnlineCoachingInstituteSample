@@ -36,7 +36,12 @@ public class QuizResultService {
         result.setCorrectAnswers(dto.getCorrectAnswers());
         result.setWrongAnswers(dto.getWrongAnswers());
         result.setTotalMarks(dto.getTotalMarks());
+        
+        int marksPerQuestion = quiz.getTotalMarks() / dto.getTotalQuestions();
 
+        int totalMarks = dto.getCorrectAnswers() * marksPerQuestion;
+
+        result.setTotalMarks(totalMarks);
         return resultDao.save(result);
     }
 }

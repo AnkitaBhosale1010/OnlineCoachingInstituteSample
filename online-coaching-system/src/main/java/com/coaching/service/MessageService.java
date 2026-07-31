@@ -38,7 +38,7 @@ public class MessageService {
         msg.setSender(sender);
         msg.setReceiver(receiver);
         msg.setMessage(request.getMessage());
-        msg.setSentAt(request.getSentAt());
+        msg.setSentAt(LocalDateTime.now());
         
         return Dao.save(msg);
 	}

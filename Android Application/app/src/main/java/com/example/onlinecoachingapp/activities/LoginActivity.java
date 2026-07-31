@@ -110,10 +110,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Save Login Session
                     sessionManager.saveUser(
-                            auth.getToken(),
-                            auth.getName(),
-                            auth.getEmail(),
-                            auth.getRole()
+                            response.body().getData().getUserId(),
+                            response.body().getData().getToken(),
+                            response.body().getData().getName(),
+                            response.body().getData().getEmail(),
+                            response.body().getData().getRole()
                     );
 
                     Toast.makeText(LoginActivity.this,

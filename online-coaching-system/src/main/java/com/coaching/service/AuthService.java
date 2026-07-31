@@ -71,7 +71,7 @@ public class AuthService {
                 user.getEmail(),
                 user.getRole());
 
-        return new AuthResponse(token,user.getName(),user.getEmail(),user.getRole());
+        return new AuthResponse(user.getUserId(),token,user.getName(),user.getEmail(),user.getRole());
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -102,7 +102,7 @@ public class AuthService {
 
     	            user.getRole());
 
-    	    return new AuthResponse(token,user.getName(),user.getEmail(),user.getRole());
+    	    return new AuthResponse(user.getUserId(),token,user.getName(),user.getEmail(),user.getRole());
     }
     
     public String changePassword(
