@@ -12,6 +12,8 @@ public class SessionManager {
     private static final String KEY_ROLE = "role";
     private static final String KEY_IS_LOGIN = "isLogin";
 
+    private static final String KEY_USER_ID = "userId";
+
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
@@ -23,16 +25,22 @@ public class SessionManager {
     }
 
     // Save User Details
-    public void saveUser(String token, String name, String email, String role) {
+    public void saveUser(Long userId,String token, String name, String email, String role) {
 
+        editor.putLong(KEY_USER_ID, userId);
         editor.putString(KEY_TOKEN, token);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_ROLE, role);
-
         editor.putBoolean(KEY_IS_LOGIN, true);
 
         editor.apply();
+    }
+
+    public Long getUserId() {
+
+        return preferences.getLong(KEY_USER_ID, 0);
+
     }
 
     // Get Token

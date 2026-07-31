@@ -9,10 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.fragments.AssignmentFragment;
+import com.example.onlinecoachingapp.fragments.AttendanceFragment;
 import com.example.onlinecoachingapp.fragments.BatchFragment;
 import com.example.onlinecoachingapp.fragments.CourseFragment;
 import com.example.onlinecoachingapp.fragments.HomeFragment;
+import com.example.onlinecoachingapp.fragments.LectureFragment;
 import com.example.onlinecoachingapp.fragments.MaterialFragment;
+import com.example.onlinecoachingapp.fragments.MessageFragment;
 import com.example.onlinecoachingapp.fragments.ProfileFragment;
 import com.example.onlinecoachingapp.fragments.QuizFragment;
 import com.example.onlinecoachingapp.session.SessionManager;
@@ -119,6 +122,22 @@ public class MainActivity extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.frameLayout, new BatchFragment())
                         .commit();
+            }
+               else if (id == R.id.nav_attendance) {
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameLayout,
+                                    new AttendanceFragment())
+                            .commit();
+
+            } else if(id == R.id.nav_lecture){
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameLayout,
+                                    new LectureFragment())
+                            .commit();
 
             }else if (id == R.id.nav_material) {
 
@@ -139,6 +158,13 @@ public class MainActivity extends AppCompatActivity {
                             .beginTransaction()
                             .replace(R.id.frameLayout,
                                     new QuizFragment())
+                            .commit();
+            } else if (id == R.id.nav_messages) {
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frameLayout,
+                                    new MessageFragment())
                             .commit();
 
             } else if (id == R.id.nav_profile) {

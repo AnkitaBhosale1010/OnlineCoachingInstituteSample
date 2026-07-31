@@ -16,5 +16,6 @@ public class MessageRequest {
 	
 	@NotBlank(message = "Message cannot be empty")
     private String message;
+	
     private LocalDateTime sentAt;
 }

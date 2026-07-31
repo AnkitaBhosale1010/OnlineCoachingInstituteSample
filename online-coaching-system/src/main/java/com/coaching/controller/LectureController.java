@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Lecture;
 import com.coaching.service.LectureService;
 
@@ -32,9 +33,16 @@ public class LectureController {
     }
 
     @GetMapping("/course/{courseId}")
-    public List<Lecture> getCourseLectures(@PathVariable Long courseId) {
+    public ApiResponse<List<Lecture>> getCourseLectures(
+            @PathVariable Long courseId) {
 
-        return lectureService.getCourseLectures(courseId);
+        List<Lecture> lectures =
+                lectureService.getCourseLectures(courseId);
+
+        return new ApiResponse<>(
+                true,
+                "Lecture List",
+                lectures);
     }
 
     @GetMapping("/{id}")
