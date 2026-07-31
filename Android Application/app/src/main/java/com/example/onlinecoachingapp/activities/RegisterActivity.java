@@ -1,6 +1,6 @@
 package com.example.onlinecoachingapp.activities;
 
-import android.annotation.SuppressLint;
+import android.util.Log;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -14,6 +14,7 @@ import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.api.ApiClient;
 import com.example.onlinecoachingapp.api.ApiService;
 import com.example.onlinecoachingapp.model.ApiResponse;
+import com.example.onlinecoachingapp.model.AuthResponse;
 import com.example.onlinecoachingapp.model.RegisterRequest;
 import com.google.android.material.button.MaterialButton;
 import retrofit2.Call;
@@ -126,50 +127,83 @@ public class RegisterActivity extends AppCompatActivity {
                         role
                 );
 
-        Call<ApiResponse<String>> call = apiService.register(request);
+        Call<ApiResponse<AuthResponse>> call = apiService.register(request);
 
-        call.enqueue(new Callback<ApiResponse<String>>() {
+        call.enqueue(new Callback<ApiResponse<AuthResponse>>() {
 
             @Override
-            public void onResponse(Call<ApiResponse<String>> call,
-                                   Response<ApiResponse<String>> response) {
+            public void onResponse(
+                    Call<ApiResponse<AuthResponse>> call,
+                    Response<ApiResponse<AuthResponse>> response) {
+
+                Log.e("REGISTER", "HTTP Code = " + response.code());
+                Log.e("REGISTER", "isSuccessful = " + response.isSuccessful());
+
+                if (response.body() != null) {
+
+                    Log.e("REGISTER", "Success = " + response.body().isSuccess());
+                    Log.e("REGISTER", "Message = " + response.body().getMessage());
+
+                } else {
+
+                    try {
+
+                        Log.e("REGISTER",
+                                "ErrorBody = " +
+                                        response.errorBody().string());
+
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                    }
+                }
 
                 if (response.isSuccessful()
                         && response.body() != null
                         && response.body().isSuccess()) {
 
-                    Toast.makeText(RegisterActivity.this,
+                    Toast.makeText(
+                            RegisterActivity.this,
                             response.body().getMessage(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_LONG
+                    ).show();
 
-                    Intent intent = new Intent(RegisterActivity.this,
-                            LoginActivity.class);
+                    startActivity(
+                            new Intent(RegisterActivity.this,
+                                    LoginActivity.class));
 
-                    startActivity(intent);
                     finish();
 
                 } else {
 
+                    Log.e("REGISTER",
+                            "Error Body = " + response.errorBody());
+
+                    Log.e("REGISTER",
+                            "Code = " + response.code());
+
+                    if(response.body()!=null){
+                        Log.e("REGISTER",
+                                "Message = " + response.body().getMessage());
+                    }
+
                     Toast.makeText(RegisterActivity.this,
                             "Registration Failed",
                             Toast.LENGTH_LONG).show();
-
                 }
-
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<String>> call,
-                                  Throwable t) {
+            public void onFailure(
+                    Call<ApiResponse<AuthResponse>> call,
+                    Throwable t) {
 
                 Toast.makeText(RegisterActivity.this,
                         "Error : " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
 
+                Log.e("REGISTER", "Error", t);
             }
-
         });
-
-
     }
 }
