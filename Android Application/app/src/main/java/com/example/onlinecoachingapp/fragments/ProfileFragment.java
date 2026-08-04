@@ -76,7 +76,7 @@ public class ProfileFragment extends Fragment {
                     txtAddress.setText(student.getAddress());
                     txtDob.setText(student.getDob());
                     txtJoinDate.setText(student.getJoinDate());
-                    
+
 
                 } else {
 

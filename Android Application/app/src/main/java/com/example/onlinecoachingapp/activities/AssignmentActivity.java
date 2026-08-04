@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class AssignmentActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerAssignments;
     private AssignmentAdapter adapter;
     private ApiService apiService;
     private Long courseId;
@@ -47,8 +47,9 @@ public class AssignmentActivity extends AppCompatActivity {
         SessionManager sessionManager = new SessionManager(this);
         Long studentId = sessionManager.getStudentId();
 
-        recyclerView = findViewById(R.id.recyclerAssignments);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerAssignments =
+                findViewById(R.id.recyclerAssignments);
+        recyclerAssignments.setLayoutManager(new LinearLayoutManager(this));
 
         courseId = getIntent().getLongExtra("courseId", 0L);
 
@@ -77,7 +78,7 @@ public class AssignmentActivity extends AppCompatActivity {
                                     response.body(),
                                     filePickerLauncher);
 
-                            recyclerView.setAdapter(adapter);
+                            recyclerAssignments.setAdapter(adapter);
 
                         } else {
 

@@ -6,242 +6,464 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
+
         <!-- Welcome Card -->
 
         <com.google.android.material.card.MaterialCardView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp">
 
+
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="20dp">
 
+
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Welcome"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
+
+
                 <TextView
+
                     android:id="@+id/txtWelcome"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_marginTop="8dp"
+
                     android:text="Welcome Student"
+
                     android:textSize="22sp"
+
                     android:textStyle="bold"/>
+
 
             </LinearLayout>
 
+
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Statistics -->
+
+
+        <!-- Dashboard Cards -->
+
 
         <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:columnCount="2">
 
-            <!-- Courses -->
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+
+            android:columnCount="2"
+
+            android:useDefaultMargins="true">
+
+
+
+            <!-- Courses Card -->
+
 
             <com.google.android.material.card.MaterialCardView
+
                 android:layout_width="0dp"
+
                 android:layout_height="140dp"
+
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp">
+
+                app:cardCornerRadius="12dp"
+
+                app:cardElevation="4dp">
+
+
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
+
                     android:gravity="center"
+
                     android:orientation="vertical">
 
+
+
                     <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+
+                        android:layout_width="45dp"
+
+                        android:layout_height="45dp"
+
                         android:src="@drawable/ic_course"/>
 
-                    <TextView
-                        android:id="@+id/txtCourses"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="0"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
+
 
                     <TextView
+
+                        android:id="@+id/txtCourses"
+
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+
+                        android:text="0"
+
+                        android:textSize="28sp"
+
+                        android:textStyle="bold"/>
+
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
                         android:text="My Courses"/>
 
+
                 </LinearLayout>
+
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Lectures -->
+
+
+
+
+            <!-- Lecture Card -->
+
 
             <com.google.android.material.card.MaterialCardView
+
+
                 android:layout_width="0dp"
+
                 android:layout_height="140dp"
+
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp">
+
+                app:cardCornerRadius="12dp"
+
+                app:cardElevation="4dp">
+
 
                 <LinearLayout
+
+
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
+
                     android:gravity="center"
+
                     android:orientation="vertical">
 
+
+
                     <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+
+                        android:layout_width="45dp"
+
+                        android:layout_height="45dp"
+
                         android:src="@drawable/ic_video"/>
 
-                    <TextView
-                        android:id="@+id/txtLectures"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="0"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
+
 
                     <TextView
+
+                        android:id="@+id/txtLectures"
+
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+
+                        android:text="0"
+
+                        android:textSize="28sp"
+
+                        android:textStyle="bold"/>
+
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
                         android:text="Lectures"/>
 
+
+
                 </LinearLayout>
+
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Assignments -->
+
+
+
+
+
+            <!-- Assignment Card -->
+
 
             <com.google.android.material.card.MaterialCardView
+
+
                 android:layout_width="0dp"
+
                 android:layout_height="140dp"
+
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp">
+
+                app:cardCornerRadius="12dp"
+
+                app:cardElevation="4dp">
+
+
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
+
                     android:gravity="center"
+
                     android:orientation="vertical">
 
+
+
                     <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+
+                        android:layout_width="45dp"
+
+                        android:layout_height="45dp"
+
                         android:src="@drawable/ic_assignment"/>
 
-                    <TextView
-                        android:id="@+id/txtAssignments"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="0"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
+
 
                     <TextView
+
+                        android:id="@+id/txtAssignments"
+
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+
+                        android:text="0"
+
+                        android:textSize="28sp"
+
+                        android:textStyle="bold"/>
+
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
                         android:text="Assignments"/>
 
+
+
                 </LinearLayout>
+
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Quiz -->
+
+
+
+
+
+
+            <!-- Quiz Card -->
+
 
             <com.google.android.material.card.MaterialCardView
+
+
                 android:layout_width="0dp"
+
                 android:layout_height="140dp"
+
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp">
+
+                app:cardCornerRadius="12dp"
+
+                app:cardElevation="4dp">
+
+
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
+
                     android:gravity="center"
+
                     android:orientation="vertical">
 
+
+
                     <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+
+                        android:layout_width="45dp"
+
+                        android:layout_height="45dp"
+
                         android:src="@drawable/ic_quiz"/>
 
-                    <TextView
-                        android:id="@+id/txtQuiz"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="0"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
+
 
                     <TextView
+
+                        android:id="@+id/txtQuiz"
+
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+
+                        android:text="0"
+
+                        android:textSize="28sp"
+
+                        android:textStyle="bold"/>
+
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
                         android:text="Upcoming Quiz"/>
+
+
 
                 </LinearLayout>
 
+
             </com.google.android.material.card.MaterialCardView>
+
+
 
         </GridLayout>
 
+
+
+
+
         <!-- Quick Actions -->
 
+
         <TextView
+
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+
+            android:layout_marginTop="24dp"
+
             android:text="Quick Actions"
+
             android:textSize="18sp"
+
             android:textStyle="bold"/>
 
+
+
+
+
         <com.google.android.material.button.MaterialButton
+
+
             android:id="@+id/btnMyCourses"
+
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+
             android:layout_marginTop="12dp"
-            android:text="My Courses"
+
+            android:text="All Courses"
+
             app:icon="@drawable/ic_course"/>
 
+
+
+
+
         <com.google.android.material.button.MaterialButton
+
+
             android:id="@+id/btnAssignments"
+
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+
             android:layout_marginTop="10dp"
+
             android:text="Assignments"
+
             app:icon="@drawable/ic_assignment"/>
 
+
+
+
+
         <com.google.android.material.button.MaterialButton
+
+
             android:id="@+id/btnQuiz"
+
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+
             android:layout_marginTop="10dp"
+
             android:text="Attempt Quiz"
+
             app:icon="@drawable/ic_quiz"/>
 
+
+
     </LinearLayout>
+
 
 </ScrollView>

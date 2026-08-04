@@ -25,6 +25,13 @@ public class MessageService {
 
         return Dao.findByReceiverUserIdOrderBySentAtDesc(userId);
     }
+    
+    public List<Message> getConversation(
+            Long user1,
+            Long user2){
+
+        return Dao.getConversation(user1, user2);
+    }
 
 	public Message sendMessage(MessageRequest request) {
 		User sender = userDao.findById(request.getSenderId())

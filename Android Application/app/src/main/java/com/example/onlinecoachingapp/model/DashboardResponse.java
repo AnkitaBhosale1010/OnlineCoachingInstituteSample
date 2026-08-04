@@ -10,16 +10,6 @@ public class DashboardResponse {
     public DashboardResponse() {
     }
 
-    public DashboardResponse(int totalCourses,
-                             int totalLectures,
-                             int pendingAssignments,
-                             int upcomingQuizzes) {
-        this.totalCourses = totalCourses;
-        this.totalLectures = totalLectures;
-        this.pendingAssignments = pendingAssignments;
-        this.upcomingQuizzes = upcomingQuizzes;
-    }
-
     public int getTotalCourses() {
         return totalCourses;
     }
@@ -51,4 +41,6 @@ public class DashboardResponse {
     public void setUpcomingQuizzes(int upcomingQuizzes) {
         this.upcomingQuizzes = upcomingQuizzes;
     }
+
+
 }

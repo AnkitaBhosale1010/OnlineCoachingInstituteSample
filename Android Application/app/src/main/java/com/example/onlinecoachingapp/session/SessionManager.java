@@ -29,8 +29,18 @@ public class SessionManager {
     }
 
     //Get Student ID
-    public Long getStudentId() {
-        return preferences.getLong(KEY_STUDENT_ID, 0);
+    public Long getStudentId(){
+
+        long id =
+                preferences.getLong(
+                        "studentId",
+                        -1
+                );
+
+        if(id==-1)
+            return null;
+
+        return id;
     }
 
     // Save User Details
