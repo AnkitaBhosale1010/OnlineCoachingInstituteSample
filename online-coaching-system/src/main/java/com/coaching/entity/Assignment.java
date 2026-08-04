@@ -34,6 +34,8 @@ public class Assignment {
 	    private Integer totalMarks;
 
 	    private LocalDate createdDate;
+	    
+	    private String fileUrl;
 
 	    @ManyToOne
 	    @JoinColumn(name = "course_id")

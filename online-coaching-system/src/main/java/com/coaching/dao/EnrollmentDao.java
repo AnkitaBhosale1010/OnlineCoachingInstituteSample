@@ -14,4 +14,6 @@ public interface EnrollmentDao extends JpaRepository<Enrollment, Long>{
     Optional<Enrollment> findByStudentStudentIdAndCourseCourseId(
             Long studentId,
             Long courseId);
+    
+    long countByStudentStudentId(Long studentId);
 }

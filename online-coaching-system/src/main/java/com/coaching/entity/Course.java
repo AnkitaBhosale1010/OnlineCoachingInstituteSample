@@ -38,6 +38,5 @@ public class Course {
     @JsonIgnore
     private Teacher teacher;
     
-    
-
+   
 }

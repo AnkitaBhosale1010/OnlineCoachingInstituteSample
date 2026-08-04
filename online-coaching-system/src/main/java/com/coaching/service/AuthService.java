@@ -65,13 +65,26 @@ public class AuthService {
             studentDao.save(student);
         }
 
-        // ===========================
-
         String token = jwtUtil.generateToken(
                 user.getEmail(),
                 user.getRole());
 
-        return new AuthResponse(user.getUserId(),token,user.getName(),user.getEmail(),user.getRole());
+        Long studentId = null;
+
+        if (request.getRole().equalsIgnoreCase("STUDENT")) {
+            Student student = studentDao.findByUserUserId(user.getUserId())
+                    .orElseThrow(() -> new RuntimeException("Student not found"));
+
+            studentId = student.getStudentId();
+        }
+
+        return new AuthResponse(
+                user.getUserId(),
+                studentId,
+                token,
+                user.getName(),
+                user.getEmail(),
+                user.getRole());
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -97,12 +110,30 @@ public class AuthService {
     	    }
 
     	    String token = jwtUtil.generateToken(
-
     	            user.getEmail(),
-
     	            user.getRole());
 
-    	    return new AuthResponse(user.getUserId(),token,user.getName(),user.getEmail(),user.getRole());
+    	    Long studentId = null;
+
+    	    if(user.getRole().equalsIgnoreCase("STUDENT")){
+
+    	        Student student = studentDao.findByUserUserId(user.getUserId())
+    	                .orElseThrow(() ->
+    	                        new ResourceNotFoundException("Student not found"));
+
+    	        studentId = student.getStudentId();
+    	    }
+
+    	    AuthResponse response = new AuthResponse();
+
+    	    response.setUserId(user.getUserId());
+    	    response.setStudentId(studentId);
+    	    response.setToken(token);
+    	    response.setName(user.getName());
+    	    response.setEmail(user.getEmail());
+    	    response.setRole(user.getRole());
+
+    	    return response;
     }
     
     public String changePassword(

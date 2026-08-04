@@ -1,73 +1,86 @@
-package com.example.onlinecoachingapp.fragments;
+package com.example.onlinecoachingapp.activities;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.adapter.LectureAdapter;
 import com.example.onlinecoachingapp.api.ApiClient;
-import com.example.onlinecoachingapp.api.LectureApi;
+import com.example.onlinecoachingapp.api.ApiService;
 import com.example.onlinecoachingapp.model.ApiResponse;
 import com.example.onlinecoachingapp.model.Lecture;
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LectureFragment extends Fragment {
+public class LectureActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    LectureAdapter adapter;
-    List<Lecture> lectureList;
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
-    @Nullable
+    private LectureAdapter adapter;
+    private List<Lecture> lectureList;
+
+    private ApiService apiService;
+
+    private Long courseId;
+
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lecture);
 
-        View view = inflater.inflate(
-                R.layout.fragment_lecture,
-                container,
-                false);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
 
-        recyclerView = view.findViewById(R.id.recyclerLecture);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
+        recyclerView = findViewById(R.id.recyclerLecture);
+        progressBar = findViewById(R.id.progressBar);
 
         recyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext()));
+                new LinearLayoutManager(this));
 
         lectureList = new ArrayList<>();
 
-        adapter = new LectureAdapter(
-                getContext(),
-                lectureList);
+        adapter = new LectureAdapter(this, lectureList);
 
         recyclerView.setAdapter(adapter);
 
-        loadLectures();
+        apiService = ApiClient
+                .getRetrofitInstance(this)
+                .create(ApiService.class);
 
-        return view;
+        courseId = getIntent().getLongExtra(
+                "courseId",
+                0);
+
+        loadLectures();
     }
 
     private void loadLectures() {
 
-        Long courseId = 2L;
+        progressBar.setVisibility(View.VISIBLE);
 
-        LectureApi api = ApiClient
-                .getRetrofitInstance(requireContext())
-                .create(LectureApi.class);
-
-        api.getLectures(courseId)
+        apiService.getCourseLectures(courseId)
                 .enqueue(new Callback<ApiResponse<List<Lecture>>>() {
 
                     @Override
@@ -75,38 +88,43 @@ public class LectureFragment extends Fragment {
                             Call<ApiResponse<List<Lecture>>> call,
                             Response<ApiResponse<List<Lecture>>> response) {
 
-                        Log.e("LECTURE", "Code = " + response.code());
+                        progressBar.setVisibility(View.GONE);
 
                         if (response.isSuccessful()
                                 && response.body() != null
                                 && response.body().isSuccess()) {
 
                             lectureList.clear();
-                            lectureList.addAll(response.body().getData());
+
+                            lectureList.addAll(
+                                    response.body().getData());
+
                             adapter.notifyDataSetChanged();
 
                         } else {
 
                             Toast.makeText(
-                                    getContext(),
+                                    LectureActivity.this,
                                     "No Lectures Found",
                                     Toast.LENGTH_SHORT
                             ).show();
+
                         }
                     }
+
 
                     @Override
                     public void onFailure(
                             Call<ApiResponse<List<Lecture>>> call,
                             Throwable t) {
 
+                        progressBar.setVisibility(View.GONE);
+
                         Toast.makeText(
-                                getContext(),
+                                LectureActivity.this,
                                 t.getMessage(),
                                 Toast.LENGTH_LONG
                         ).show();
-
-                        Log.e("LECTURE", t.getMessage(), t);
                     }
                 });
     }

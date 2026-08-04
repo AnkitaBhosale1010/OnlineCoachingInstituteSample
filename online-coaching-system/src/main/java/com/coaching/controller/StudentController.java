@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.coaching.dto.DashboardResponse;
 import com.coaching.dto.StudentRequest;
 import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Student;
@@ -24,6 +25,13 @@ import lombok.RequiredArgsConstructor;
 public class StudentController {
 	
 	private final StudentService studentService;
+	
+	 @GetMapping("/dashboard/{studentId}")
+	    public DashboardResponse getDashboard(
+	            @PathVariable Long studentId) {
+
+	        return studentService.getDashboard(studentId);
+	    }
 
 	@PostMapping
 	public ResponseEntity<ApiResponse<Student>> createStudent(@Valid @RequestBody StudentRequest request){

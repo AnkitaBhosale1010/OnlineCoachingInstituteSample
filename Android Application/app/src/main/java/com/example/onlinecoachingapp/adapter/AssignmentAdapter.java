@@ -39,8 +39,8 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
 
         holder.title.setText(assignment.getTitle());
         holder.desc.setText(assignment.getDescription());
-        holder.deadline.setText("Deadline : "+assignment.getDeadline());
-        holder.marks.setText("Marks : "+assignment.getTotalMarks());
+        holder.date.setText("Deadline : "+assignment.getDeadline());
+        holder.upload.setText("Marks : "+assignment.getTotalMarks());
 
     }
 
@@ -51,15 +51,15 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView title,desc,deadline,marks;
+        TextView title,desc,date,upload;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title=itemView.findViewById(R.id.txtTitle);
             desc=itemView.findViewById(R.id.txtDescription);
-            deadline=itemView.findViewById(R.id.txtDeadline);
-            marks=itemView.findViewById(R.id.txtMarks);
+            date=itemView.findViewById(R.id.txtDate);
+
         }
     }
 }

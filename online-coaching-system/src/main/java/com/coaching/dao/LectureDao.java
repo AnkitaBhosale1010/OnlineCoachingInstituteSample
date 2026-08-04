@@ -8,3 +8,4 @@ public interface LectureDao extends JpaRepository<Lecture, Long>  {
  
 	List<Lecture> findByCourseCourseId(Long courseId);
 }
+	

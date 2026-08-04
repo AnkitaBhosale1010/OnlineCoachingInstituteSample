@@ -4,61 +4,185 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.model.Course;
 import java.util.List;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder>{
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
+
     private Context context;
     private List<Course> courseList;
+    private OnEnrollClickListener listener;
 
-    public CourseAdapter(Context context, List<Course> courseList) {
+    public interface OnEnrollClickListener {
+        void onEnrollClick(Course course);
+    }
+    public CourseAdapter(
+            Context context,
+            List<Course> courseList,
+            OnEnrollClickListener listener)
+    {
         this.context = context;
         this.courseList = courseList;
+        this.listener = listener;
+
     }
 
     @NonNull
     @Override
-    public CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent,
+            int viewType
+    ) {
 
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_course, parent, false);
 
-        return new CourseViewHolder(view);
+        View view =
+                LayoutInflater.from(context)
+                        .inflate(
+                                R.layout.item_course,
+                                parent,
+                                false
+                        );
+
+
+        return new ViewHolder(view);
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull ViewHolder holder,
+            int position
+    ) {
 
-        Course course = courseList.get(position);
 
-        holder.txtTitle.setText(course.getTitle());
-        holder.txtDescription.setText(course.getDescription());
-        holder.txtPrice.setText("₹ " + course.getPrice());
-        holder.txtDuration.setText(course.getDuration());
+        Course course =
+                courseList.get(position);
+
+
+
+        holder.txtTitle.setText(
+                course.getTitle()
+        );
+
+
+        holder.txtDescription.setText(
+                course.getDescription()
+        );
+
+
+        holder.txtDuration.setText(
+                "Duration : "
+                        +
+                        course.getDuration()
+        );
+
+
+        holder.txtLevel.setText(
+                "Level : "
+                        +
+                        course.getLevel()
+        );
+
+
+        holder.txtPrice.setText(
+                "Price : ₹"
+                        +
+                        course.getPrice()
+        );
+
+
+
+        holder.btnEnroll.setOnClickListener(v -> {
+
+
+            listener.onEnrollClick(course);
+
+
+        });
+
+
+
     }
+
+
+
+
 
     @Override
     public int getItemCount() {
+
         return courseList.size();
+
     }
 
-    static class CourseViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtTitle, txtDescription, txtPrice, txtDuration;
 
-        public CourseViewHolder(@NonNull View itemView) {
+
+
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+
+        TextView txtTitle;
+        TextView txtDescription;
+        TextView txtDuration;
+        TextView txtLevel;
+        TextView txtPrice;
+
+        Button btnEnroll;
+
+
+
+        public ViewHolder(
+                @NonNull View itemView
+        ) {
+
             super(itemView);
 
-            txtTitle = itemView.findViewById(R.id.txtTitle);
-            txtDescription = itemView.findViewById(R.id.txtDescription);
-            txtPrice = itemView.findViewById(R.id.txtPrice);
-            txtDuration = itemView.findViewById(R.id.txtDuration);
+
+            txtTitle =
+                    itemView.findViewById(
+                            R.id.txtCourseTitle
+                    );
+
+
+            txtDescription =
+                    itemView.findViewById(
+                            R.id.txtCourseDescription
+                    );
+
+
+            txtDuration =
+                    itemView.findViewById(
+                            R.id.txtDuration
+                    );
+
+
+            txtLevel =
+                    itemView.findViewById(
+                            R.id.txtLevel
+                    );
+
+
+            txtPrice =
+                    itemView.findViewById(
+                            R.id.txtPrice
+                    );
+
+
+            btnEnroll =
+                    itemView.findViewById(
+                            R.id.btnEnroll
+                    );
+
         }
+
     }
+
 }
