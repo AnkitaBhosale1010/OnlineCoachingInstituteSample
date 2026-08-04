@@ -7,17 +7,21 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.api.ApiClient;
-import com.example.onlinecoachingapp.api.QuizApi;
+import com.example.onlinecoachingapp.api.ApiService;
 import com.example.onlinecoachingapp.model.ApiResponse;
 import com.example.onlinecoachingapp.model.QuizAnswer;
 import com.example.onlinecoachingapp.model.QuizAttempt;
 import com.example.onlinecoachingapp.model.QuizQuestion;
 import com.example.onlinecoachingapp.session.SessionManager;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,20 +32,23 @@ public class QuestionActivity extends AppCompatActivity {
 
     RadioGroup radioGroup;
 
-    RadioButton radioA, radioB, radioC, radioD;
+    RadioButton rbA, rbB, rbC, rbD;
 
     Button btnNext;
 
+    ApiService apiService;
+
     List<QuizQuestion> questionList = new ArrayList<>();
 
-    int currentIndex = 0;
-    int correct = 0;
-    int wrong = 0;
-    int marks = 0;
+    int currentPosition = 0;
 
     Long quizId;
 
-    Long studentId = 3L;      // Change later
+    Long studentId;
+
+    int correctAnswers = 0;
+
+    int wrongAnswers = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,63 +60,57 @@ public class QuestionActivity extends AppCompatActivity {
 
         radioGroup = findViewById(R.id.radioGroup);
 
-        radioA = findViewById(R.id.radioA);
-        radioB = findViewById(R.id.radioB);
-        radioC = findViewById(R.id.radioC);
-        radioD = findViewById(R.id.radioD);
+        rbA = findViewById(R.id.rbOptionA);
+        rbB = findViewById(R.id.rbOptionB);
+        rbC = findViewById(R.id.rbOptionC);
+        rbD = findViewById(R.id.rbOptionD);
 
         btnNext = findViewById(R.id.btnNext);
 
         quizId = getIntent().getLongExtra("quizId",0);
 
+        SessionManager sessionManager = new SessionManager(this);
+
+        studentId = sessionManager.getStudentId();
+
+        apiService = ApiClient
+                .getRetrofitInstance(this)
+                .create(ApiService.class);
+
         loadQuestions();
 
-        btnNext.setOnClickListener(v -> submitAnswer());
+        btnNext.setOnClickListener(v -> submitCurrentAnswer());
 
     }
 
-    private void loadQuestions() {
+    private void loadQuestions(){
 
-        QuizApi api = ApiClient
-                .getRetrofitInstance(this)
-                .create(QuizApi.class);
-
-        api.getQuizQuestions(quizId)
+        apiService.getQuizQuestions(quizId)
                 .enqueue(new Callback<List<QuizQuestion>>() {
 
                     @Override
-                    public void onResponse(
-                            Call<List<QuizQuestion>> call,
-                            Response<List<QuizQuestion>> response) {
+                    public void onResponse(Call<List<QuizQuestion>> call,
+                                           Response<List<QuizQuestion>> response) {
 
                         if(response.isSuccessful() &&
                                 response.body()!=null){
 
-                            questionList.clear();
-
-                            questionList.addAll(response.body());
+                            questionList = response.body();
 
                             showQuestion();
 
-                        }else{
-
-                            Toast.makeText(
-                                    QuestionActivity.this,
-                                    "Questions not found",
-                                    Toast.LENGTH_SHORT).show();
                         }
 
                     }
 
                     @Override
-                    public void onFailure(
-                            Call<List<QuizQuestion>> call,
-                            Throwable t) {
+                    public void onFailure(Call<List<QuizQuestion>> call,
+                                          Throwable t) {
 
                         Toast.makeText(
                                 QuestionActivity.this,
                                 t.getMessage(),
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -118,56 +119,53 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void showQuestion(){
 
-        QuizQuestion q = questionList.get(currentIndex);
+        QuizQuestion question =
+                questionList.get(currentPosition);
 
         txtQuestionNo.setText(
                 "Question "
-                        +(currentIndex+1));
+                        +(currentPosition+1)
+                        +"/"
+                        +questionList.size());
 
-        txtQuestion.setText(q.getQuestion());
+        txtQuestion.setText(question.getQuestion());
 
-        radioA.setText(q.getOptionA());
-        radioB.setText(q.getOptionB());
-        radioC.setText(q.getOptionC());
-        radioD.setText(q.getOptionD());
+        rbA.setText(question.getOptionA());
+        rbB.setText(question.getOptionB());
+        rbC.setText(question.getOptionC());
+        rbD.setText(question.getOptionD());
 
         radioGroup.clearCheck();
 
     }
 
-    private void submitAnswer(){
+    private void submitCurrentAnswer(){
 
         if(radioGroup.getCheckedRadioButtonId()==-1){
 
             Toast.makeText(this,
-                    "Select Answer",
+                    "Select an option",
                     Toast.LENGTH_SHORT).show();
 
             return;
+
         }
 
-        RadioButton rb =
+        RadioButton selected =
                 findViewById(
                         radioGroup.getCheckedRadioButtonId());
 
-        String answer =
-                rb.getText().toString();
-
         QuizQuestion question =
-                questionList.get(currentIndex);
+                questionList.get(currentPosition);
 
-        QuizAnswer quizAnswer =
-                new QuizAnswer(
-                        studentId,
-                        question.getQuestionId(),
-                        answer);
+        QuizAnswer answer =
+                new QuizAnswer();
 
-        QuizApi api =
-                ApiClient
-                        .getRetrofitInstance(this)
-                        .create(QuizApi.class);
+        answer.setQuestionId(question.getQuestionId());
+        answer.setStudentId(studentId);
+        answer.setAnswer(selected.getText().toString());
 
-        api.submitAnswer(quizAnswer)
+        apiService.submitAnswer(answer)
                 .enqueue(new Callback<ApiResponse<QuizAttempt>>() {
 
                     @Override
@@ -175,45 +173,26 @@ public class QuestionActivity extends AppCompatActivity {
                             Call<ApiResponse<QuizAttempt>> call,
                             Response<ApiResponse<QuizAttempt>> response) {
 
-                        if(response.body()!=null &&
-                                response.body().isSuccess()){
+                        if(response.isSuccessful()
+                                && response.body()!=null){
 
-                            if(response.body().getData().getObtainedMarks()>0){
+                            QuizAttempt attempt =
+                                    response.body().getData();
 
-                                correct++;
+                            if(attempt.getObtainedMarks()>0){
 
-                                marks += response.body()
-                                        .getData()
-                                        .getObtainedMarks();
+                                correctAnswers++;
 
                             }else{
 
-                                wrong++;
+                                wrongAnswers++;
+
                             }
 
+                            nextQuestion();
+
                         }
 
-                        currentIndex++;
-
-                        if(currentIndex<questionList.size()){
-
-                            showQuestion();
-
-                        }else{
-
-                            Intent intent =
-                                    new Intent(
-                                            QuestionActivity.this,
-                                            ResultActivity.class);
-
-                            intent.putExtra("total", questionList.size());
-                            intent.putExtra("correct", correct);
-                            intent.putExtra("wrong", wrong);
-                            intent.putExtra("marks", marks);
-
-                            startActivity(intent);
-                            finish();
-                        }
                     }
 
                     @Override
@@ -224,9 +203,51 @@ public class QuestionActivity extends AppCompatActivity {
                         Toast.makeText(
                                 QuestionActivity.this,
                                 t.getMessage(),
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
 
                     }
+
                 });
+
     }
+
+    private void nextQuestion(){
+
+        currentPosition++;
+
+        if(currentPosition<questionList.size()){
+
+            showQuestion();
+
+        }else{
+
+            Intent intent =
+                    new Intent(
+                            this,
+                            QuizResultActivity.class);
+
+            intent.putExtra(
+                    "quizId",
+                    quizId);
+
+            intent.putExtra(
+                    "correct",
+                    correctAnswers);
+
+            intent.putExtra(
+                    "wrong",
+                    wrongAnswers);
+
+            intent.putExtra(
+                    "total",
+                    questionList.size());
+
+            startActivity(intent);
+
+            finish();
+
+        }
+
+    }
+
 }

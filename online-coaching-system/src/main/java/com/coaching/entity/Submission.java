@@ -1,7 +1,7 @@
 package com.coaching.entity;
 
-import java.time.LocalDate;
-
+import java.time.LocalDateTime;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,19 +24,27 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long submissionId;
 
-    private LocalDate submissionDate;
+    private LocalDateTime submittedAt;
 
-    private String fileUrl;
-
-    private Integer marksObtained;
+    private Double marks;
 
     private String feedback;
+    
+
+    @Column(name="file_name")
+    private String fileName;
+
+    @Column(name="file_path")
+    private String filePath;
+
+    @Column(name="remarks")
+    private String remarks;
 
     @ManyToOne
-    @JoinColumn(name = "assignment_id")
+    @JoinColumn(name="assignment_id")
     private Assignment assignment;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name="student_id")
     private Student student;
 }

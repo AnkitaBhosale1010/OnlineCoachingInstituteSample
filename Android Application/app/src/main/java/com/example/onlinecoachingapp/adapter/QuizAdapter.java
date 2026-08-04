@@ -7,16 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.activities.QuestionActivity;
 import com.example.onlinecoachingapp.model.Quiz;
+
 import java.util.List;
 
-public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder>{
-    Context context;
-    List<Quiz> quizList;
+public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
+
+    private Context context;
+    private List<Quiz> quizList;
 
     public QuizAdapter(Context context, List<Quiz> quizList) {
         this.context = context;
@@ -30,9 +34,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder>{
             int viewType) {
 
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_quiz,
-                        parent,
-                        false);
+                .inflate(R.layout.item_quiz, parent, false);
 
         return new ViewHolder(view);
     }
@@ -44,23 +46,17 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder>{
 
         Quiz quiz = quizList.get(position);
 
-        holder.title.setText(quiz.getTitle());
+        holder.txtTitle.setText(quiz.getTitle());
+        holder.txtDescription.setText(quiz.getDescription());
+        holder.txtMarks.setText("Marks : " + quiz.getTotalMarks());
 
-        holder.marks.setText(
-                "Total Marks : " + quiz.getTotalMarks());
+        holder.btnStartQuiz.setOnClickListener(v -> {
 
-        holder.date.setText(
-                "Quiz Date : " + quiz.getQuizDate());
+            Intent intent = new Intent(
+                    context,
+                    QuestionActivity.class);
 
-        holder.start.setOnClickListener(v -> {
-
-            Intent intent =
-                    new Intent(context,
-                            QuestionActivity.class);
-
-            intent.putExtra(
-                    "quizId",
-                    quiz.getQuizId());
+            intent.putExtra("quizId", quiz.getQuizId());
 
             context.startActivity(intent);
 
@@ -75,17 +71,18 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder>{
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, marks, date;
-        Button start;
+        TextView txtTitle;
+        TextView txtDescription;
+        TextView txtMarks;
+        Button btnStartQuiz;
 
         public ViewHolder(@NonNull View itemView) {
-
             super(itemView);
 
-            title = itemView.findViewById(R.id.txtQuizTitle);
-            marks = itemView.findViewById(R.id.txtMarks);
-            date = itemView.findViewById(R.id.txtDate);
-            start = itemView.findViewById(R.id.btnStartQuiz);
+            txtTitle = itemView.findViewById(R.id.txtQuizTitle);
+            txtDescription = itemView.findViewById(R.id.txtDescription);
+            txtMarks = itemView.findViewById(R.id.txtMarks);
+            btnStartQuiz = itemView.findViewById(R.id.btnStartQuiz);
         }
     }
 }

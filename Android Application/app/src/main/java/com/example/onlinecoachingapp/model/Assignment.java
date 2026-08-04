@@ -64,4 +64,5 @@ public class Assignment {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
+
 }

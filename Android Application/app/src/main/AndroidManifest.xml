@@ -22,6 +22,9 @@
         android:theme="@style/Theme.OnlineCoachingApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.QuizResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AssignmentActivity"
             android:exported="false" />
         <activity

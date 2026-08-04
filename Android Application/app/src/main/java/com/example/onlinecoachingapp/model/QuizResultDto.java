@@ -1,19 +1,29 @@
 package com.example.onlinecoachingapp.model;
 
-public class QuizResult {
+public class QuizResultDto {
 
-    private Long resultId;
+    private Long quizId;
+    private Long studentId;
+
     private Integer totalQuestions;
     private Integer correctAnswers;
     private Integer wrongAnswers;
     private Integer totalMarks;
 
-    public Long getResultId() {
-        return resultId;
+    public Long getQuizId() {
+        return quizId;
     }
 
-    public void setResultId(Long resultId) {
-        this.resultId = resultId;
+    public void setQuizId(Long quizId) {
+        this.quizId = quizId;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
     public Integer getTotalQuestions() {

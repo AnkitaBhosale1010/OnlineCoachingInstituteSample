@@ -94,6 +94,7 @@ public class MyCourseAdapter extends RecyclerView.Adapter<MyCourseAdapter.MyView
 
             Intent intent = new Intent(
                     context,
+
                     AssignmentActivity.class);
 
             intent.putExtra(
