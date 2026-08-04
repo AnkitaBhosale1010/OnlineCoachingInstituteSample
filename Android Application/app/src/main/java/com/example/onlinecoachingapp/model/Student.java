@@ -7,7 +7,6 @@ public class Student {
     private String dob;
     private String joinDate;
     private User user;
-    private Batch batch;
 
     public Long getStudentId() {
         return studentId;
@@ -57,11 +56,4 @@ public class Student {
         this.user = user;
     }
 
-    public Batch getBatch() {
-        return batch;
-    }
-
-    public void setBatch(Batch batch) {
-        this.batch = batch;
-    }
 }

@@ -8,7 +8,16 @@ public class QuizQuestion {
     private String optionB;
     private String optionC;
     private String optionD;
+    private String correctAnswer;
     private Integer marks;
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
 
     public Long getQuestionId() {
         return questionId;

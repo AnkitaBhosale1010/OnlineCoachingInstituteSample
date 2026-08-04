@@ -67,6 +67,7 @@ public class SecurityConfig {
     		 // Public APIs
              .requestMatchers(
                      "/api/auth/**",
+                     "/api/study-material/upload",
                      "/swagger-ui/**",
                      "/v3/api-docs/**")
              .permitAll()
@@ -90,7 +91,7 @@ public class SecurityConfig {
              .requestMatchers("/api/batches/**",
                                "/api/assignments/**",
             		          "/api/materials/**",
-            		          "/api/messages/**")
+            		          "/api/messages/**"	)
              .hasAnyRole("ADMIN", "TEACHER", "STUDENT")
              
              .requestMatchers(HttpMethod.POST, "/api/attendance/**")

@@ -6,8 +6,16 @@ public class Assignment {
     private String description;
     private String deadline;
     private Integer totalMarks;
-
     private String createdDate;
+    private String fileUrl;
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
 
     public Long getAssignmentId() {
         return assignmentId;
@@ -56,4 +64,5 @@ public class Assignment {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
+
 }

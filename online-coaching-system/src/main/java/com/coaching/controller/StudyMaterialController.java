@@ -43,13 +43,16 @@ public class StudyMaterialController {
 	                    saved)
 	    );
 	}
-    @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException{
-    	 String path = "uploads/" + file.getOriginalFilename();
-    	    file.transferTo(new File(path));
+	
+	 @PostMapping("/upload")
+	    public ResponseEntity<?> upload(
+	            @RequestParam("title") String title,
+	            @RequestParam("courseId") Long courseId,
+	            @RequestParam("file") MultipartFile file
+	    ){
 
-    	    return path;
-    }
+	        return ResponseEntity.ok("Upload Success");
+	    }
     
     @GetMapping("/course/{courseId}")
     public ResponseEntity<ApiResponse<List<StudyMaterial>>> getMaterials(

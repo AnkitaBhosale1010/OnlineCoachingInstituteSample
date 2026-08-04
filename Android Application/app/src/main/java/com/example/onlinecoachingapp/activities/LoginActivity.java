@@ -53,9 +53,6 @@ public class LoginActivity extends AppCompatActivity {
 //            finish();
 //        }
 
-//        apiService = ApiClient
-//                .getRetrofitInstance()
-//                .create(ApiService.class);
 
         apiService = ApiClient
                 .getRetrofitInstance(this)
@@ -108,20 +105,25 @@ public class LoginActivity extends AppCompatActivity {
 
                     AuthResponse auth = response.body().getData();
 
-                    // Save Login Session
                     sessionManager.saveUser(
-                            response.body().getData().getUserId(),
-                            response.body().getData().getToken(),
-                            response.body().getData().getName(),
-                            response.body().getData().getEmail(),
-                            response.body().getData().getRole()
+                            auth.getUserId(),
+                            auth.getToken(),
+                            auth.getName(),
+                            auth.getEmail(),
+                            auth.getRole()
                     );
+
+                    sessionManager.saveStudentId(auth.getStudentId());
+
+                    Log.d("LOGIN", "User ID = " + auth.getUserId());
+                    Log.d("LOGIN", "Student ID = " + auth.getStudentId());
+                    Log.d("LOGIN", "Token = " + auth.getToken());
 
                     Toast.makeText(LoginActivity.this,
                             "Login Successful",
                             Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, StudentMainActivity.class);
                     startActivity(intent);
                     finish();
 

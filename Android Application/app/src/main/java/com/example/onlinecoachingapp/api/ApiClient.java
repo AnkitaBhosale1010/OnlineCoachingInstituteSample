@@ -13,51 +13,111 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://172.18.4.78:8080/";
+    private static final String BASE_URL = "http://192.168.1.74:8080/";
 
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance(Context context) {
 
+
         if (retrofit == null) {
 
-            SessionManager sessionManager = new SessionManager(context);
+
+            SessionManager sessionManager =
+                    new SessionManager(context);
+
+
 
             HttpLoggingInterceptor logging =
                     new HttpLoggingInterceptor();
 
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-            OkHttpClient client = new OkHttpClient.Builder()
+            logging.setLevel(
+                    HttpLoggingInterceptor.Level.BODY
+            );
 
-                    .addInterceptor((Interceptor) chain -> {
 
-                        Request request = chain.request();
+            OkHttpClient client =
+                    new OkHttpClient.Builder()
 
-                        String token = sessionManager.getToken();
 
-                        if (token != null && !token.isEmpty()) {
+                            .addInterceptor(
+                                    new Interceptor() {
 
-                            request = request.newBuilder()
-                                    .addHeader("Authorization", "Bearer " + token)
-                                    .build();
-                        }
+                                        @Override
+                                        public okhttp3.Response intercept(
+                                                Chain chain)
+                                                throws java.io.IOException {
 
-                        return chain.proceed(request);
 
-                    })
+                                            Request original =
+                                                    chain.request();
 
-                    .addInterceptor(logging)
-                    .build();
 
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+
+                                            String token =
+                                                    sessionManager.getToken();
+
+
+
+                                            Request.Builder requestBuilder =
+                                                    original.newBuilder();
+
+
+
+                                            if(token != null
+                                                    &&
+                                                    !token.isEmpty()) {
+
+
+                                                requestBuilder.addHeader(
+                                                        "Authorization",
+                                                        "Bearer " + token
+                                                );
+
+                                            }
+
+
+
+                                            Request request =
+                                                    requestBuilder.build();
+
+
+
+                                            return chain.proceed(request);
+
+                                        }
+                                    }
+                            )
+
+
+
+                            .addInterceptor(logging)
+
+
+                            .build();
+
+
+
+
+
+            retrofit =
+                    new Retrofit.Builder()
+
+                            .baseUrl(BASE_URL)
+
+                            .client(client)
+
+                            .addConverterFactory(
+                                    GsonConverterFactory.create()
+                            )
+
+                            .build();
+
+
         }
-
         return retrofit;
+
     }
 
 }

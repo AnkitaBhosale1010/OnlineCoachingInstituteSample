@@ -11,6 +11,10 @@ public class QuizAnswer {
         this.answer = answer;
     }
 
+    public QuizAnswer() {
+
+    }
+
     public Long getStudentId() {
         return studentId;
     }

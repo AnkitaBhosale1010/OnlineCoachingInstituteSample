@@ -88,6 +88,10 @@ public class MessageFragment extends Fragment {
                                 Log.e("MESSAGE",
                                         m.getMessage() + " From "
                                                 + m.getSender().getName());
+
+                                messageList.clear();
+                                messageList.addAll(response.body());
+                                adapter.notifyDataSetChanged();
                             }
                         } else {
 

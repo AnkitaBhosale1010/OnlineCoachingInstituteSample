@@ -76,12 +76,7 @@ public class ProfileFragment extends Fragment {
                     txtAddress.setText(student.getAddress());
                     txtDob.setText(student.getDob());
                     txtJoinDate.setText(student.getJoinDate());
-
-                    if (student.getBatch() != null) {
-                        txtBatch.setText(student.getBatch().getBatchName());
-                    } else {
-                        txtBatch.setText("Not Assigned");
-                    }
+                    
 
                 } else {
 

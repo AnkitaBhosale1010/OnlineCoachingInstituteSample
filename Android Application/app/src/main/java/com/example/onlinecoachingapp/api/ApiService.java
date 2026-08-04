@@ -1,18 +1,32 @@
 package com.example.onlinecoachingapp.api;
 
 import com.example.onlinecoachingapp.model.ApiResponse;
+import com.example.onlinecoachingapp.model.Assignment;
 import com.example.onlinecoachingapp.model.AuthResponse;
-import com.example.onlinecoachingapp.model.Batch;
 import com.example.onlinecoachingapp.model.Course;
+import com.example.onlinecoachingapp.model.DashboardResponse;
+import com.example.onlinecoachingapp.model.Enrollment;
+import com.example.onlinecoachingapp.model.Lecture;
 import com.example.onlinecoachingapp.model.LoginRequest;
+import com.example.onlinecoachingapp.model.Quiz;
+import com.example.onlinecoachingapp.model.QuizAnswer;
+import com.example.onlinecoachingapp.model.QuizAttempt;
+import com.example.onlinecoachingapp.model.QuizQuestion;
+import com.example.onlinecoachingapp.model.QuizResult;
+import com.example.onlinecoachingapp.model.QuizResultDto;
 import com.example.onlinecoachingapp.model.RegisterRequest;
-
+import com.example.onlinecoachingapp.model.StudyMaterial;
+import com.example.onlinecoachingapp.model.Submission;
 import java.util.List;
-
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -22,4 +36,75 @@ public interface ApiService {
     @POST("api/auth/login")
     Call<ApiResponse<AuthResponse>> login(@Body LoginRequest request);
 
+    @GET("api/students/dashboard/{studentId}")
+    Call<DashboardResponse> getDashboard(
+            @Path("studentId") Long studentId
+    );
+
+    @GET("api/courses")
+    Call<ApiResponse<List<Course>>> getAllCourses();
+
+    @GET("api/courses/{id}")
+    Call<Course> getCourse(@Path("id") Long id);
+
+    @POST("api/enrollments/student/{studentId}/course/{courseId}")
+    Call<ApiResponse<Enrollment>> enrollCourse(
+            @Path("studentId") Long studentId,
+            @Path("courseId") Long courseId
+    );
+
+    @GET("api/enrollments/student/{studentId}")
+    Call<List<Enrollment>> getMyCourses(
+            @Path("studentId") Long studentId
+    );
+
+    @GET("api/lectures/course/{courseId}")
+    Call<ApiResponse<List<Lecture>>> getCourseLectures(
+            @Path("courseId") Long courseId
+    );
+
+    @GET("api/materials/course/{courseId}")
+    Call<ApiResponse<List<StudyMaterial>>> getCourseMaterials(
+            @Path("courseId") Long courseId
+    );
+
+    @GET("api/student/lectures")
+    Call<List<Lecture>> getStudentLectures(
+            );
+
+    // Get assignments by course
+    @GET("api/assignments/course/{courseId}")
+    Call<List<Assignment>> getAssignments(
+            @Path("courseId") Long courseId
+    );
+
+    // Submit Assignment
+    @Multipart
+    @POST("api/submissions/assignment/{assignmentId}/student/{studentId}")
+    Call<Submission> submitAssignment(
+            @Path("assignmentId") Long assignmentId,
+            @Path("studentId") Long studentId,
+            @Part MultipartBody.Part file,
+            @Part("remarks") RequestBody remarks
+    );
+
+    // Get all quizzes of a course
+    @GET("api/quizzes/course/{courseId}")
+    Call<List<Quiz>> getQuizzes(
+            @Path("courseId") Long courseId);
+
+    // Get all questions of a quiz
+    @GET("api/quizzes/{quizId}/questions")
+    Call<List<QuizQuestion>> getQuizQuestions(
+            @Path("quizId") Long quizId);
+
+    // Submit one answer
+    @POST("api/quizzes/submit")
+    Call<ApiResponse<QuizAttempt>> submitAnswer(
+            @Body QuizAnswer quizAnswer);
+
+    // Save final quiz result
+    @POST("api/results")
+    Call<ApiResponse<QuizResult>> saveQuizResult(
+            @Body QuizResultDto quizResultDto);
 }

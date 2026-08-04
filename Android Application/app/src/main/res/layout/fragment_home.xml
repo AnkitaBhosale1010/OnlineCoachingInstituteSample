@@ -12,41 +12,56 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Welcome -->
+        <!-- Welcome Card -->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome"
-            android:textStyle="bold"
-            android:textSize="26sp"
-            android:textColor="#000000"/>
-
-        <TextView
-            android:id="@+id/txtWelcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Online Coaching Institute"
-            android:textSize="18sp"
-            android:textColor="#666666"
-            android:layout_marginBottom="20dp"/>
-
-        <!-- Dashboard Cards -->
-
-        <androidx.gridlayout.widget.GridLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:columnCount="2">
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtWelcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Welcome Student"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Statistics -->
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:columnCount="2">
 
             <!-- Courses -->
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp"
-                app:layout_columnWeight="1">
+                app:cardCornerRadius="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,28 +72,34 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@android:drawable/ic_menu_agenda"/>
+                        android:src="@drawable/ic_course"/>
+
+                    <TextView
+                        android:id="@+id/txtCourses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Courses"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginTop="10dp"/>
+                        android:text="My Courses"/>
+
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Batches -->
+            <!-- Lectures -->
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp"
-                app:layout_columnWeight="1">
+                app:cardCornerRadius="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -89,29 +110,34 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@android:drawable/ic_menu_my_calendar"/>
+                        android:src="@drawable/ic_video"/>
+
+                    <TextView
+                        android:id="@+id/txtLectures"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Batches"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginTop="10dp"/>
+                        android:text="Lectures"/>
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Assignments -->
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp"
-                app:layout_columnWeight="1">
+                app:cardCornerRadius="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,29 +148,34 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@android:drawable/ic_menu_edit"/>
+                        android:src="@drawable/ic_assignment"/>
+
+                    <TextView
+                        android:id="@+id/txtAssignments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Assignments"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginTop="10dp"/>
+                        android:text="Assignments"/>
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Profile -->
+            <!-- Quiz -->
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp"
-                app:layout_columnWeight="1">
+                app:cardCornerRadius="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,21 +186,61 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@android:drawable/ic_menu_myplaces"/>
+                        android:src="@drawable/ic_quiz"/>
+
+                    <TextView
+                        android:id="@+id/txtQuiz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Profile"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginTop="10dp"/>
+                        android:text="Upcoming Quiz"/>
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-        </androidx.gridlayout.widget.GridLayout>
+        </GridLayout>
+
+        <!-- Quick Actions -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Quick Actions"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMyCourses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="My Courses"
+            app:icon="@drawable/ic_course"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAssignments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Assignments"
+            app:icon="@drawable/ic_assignment"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Attempt Quiz"
+            app:icon="@drawable/ic_quiz"/>
 
     </LinearLayout>
 

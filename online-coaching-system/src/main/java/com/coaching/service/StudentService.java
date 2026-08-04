@@ -4,9 +4,16 @@ import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.coaching.dao.AssignmentDao;
+import com.coaching.dao.EnrollmentDao;
+import com.coaching.dao.LectureDao;
+import com.coaching.dao.QuizDao;
 import com.coaching.dao.StudentDao;
 import com.coaching.dao.UserDao;
+import com.coaching.dto.DashboardResponse;
 import com.coaching.dto.StudentRequest;
+import com.coaching.entity.Enrollment;
 import com.coaching.entity.Student;
 import com.coaching.entity.User;
 
@@ -21,7 +28,47 @@ public class StudentService {
 	 private final StudentDao studentDao;
 	 private final UserDao userDao;
 	 private final PasswordEncoder passwordEncoder;
+	 private final EnrollmentDao enrollmentDao;
+	 private final LectureDao lectureDao;
+	 private final AssignmentDao assignmentDao;
+	 private final QuizDao quizDao;
 
+	 public DashboardResponse getDashboard(Long studentId) {
+
+	        DashboardResponse response = new DashboardResponse();
+
+	        List<Enrollment> enrollments =
+	                enrollmentDao.findByStudentStudentId(studentId);
+
+	        int lectureCount = 0;
+	        int assignmentCount = 0;
+	        int quizCount = 0;
+
+	        for (Enrollment enrollment : enrollments) {
+
+	            Long courseId = enrollment.getCourse().getCourseId();
+
+	            lectureCount += lectureDao
+	                    .findByCourseCourseId(courseId)
+	                    .size();
+
+	            assignmentCount += assignmentDao
+	                    .findByCourseCourseId(courseId)
+	                    .size();
+
+	            quizCount += quizDao
+	                    .findByCourseCourseId(courseId)
+	                    .size();
+	        }
+
+	        response.setTotalCourses(enrollments.size());
+	        response.setTotalLectures(lectureCount);
+	        response.setPendingAssignments(assignmentCount);
+	        response.setUpcomingQuizzes(quizCount);
+
+	        return response;
+	    }
+	 
 	 public Student createStudent(
 	            StudentRequest request){
 

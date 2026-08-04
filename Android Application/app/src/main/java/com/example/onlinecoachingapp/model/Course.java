@@ -7,8 +7,12 @@ public class Course {
     private Long courseId;
     private String title;
     private String description;
-    private BigDecimal price;
     private String duration;
+    private String level;
+    private BigDecimal price;
+
+    public Course() {
+    }
 
     public Long getCourseId() {
         return courseId;
@@ -34,19 +38,27 @@ public class Course {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public String getDuration() {
         return duration;
     }
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

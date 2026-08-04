@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Internet Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +22,33 @@
         android:theme="@style/Theme.OnlineCoachingApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.QuizResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AssignmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PDFViewerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.VideoPlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MaterialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LectureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.QuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LecturePlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CourseDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ResultActivity"
             android:exported="false" />
         <activity
@@ -25,7 +58,7 @@
             android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.StudentMainActivity"
             android:exported="false" />
         <activity
             android:name=".activities.RegisterActivity"

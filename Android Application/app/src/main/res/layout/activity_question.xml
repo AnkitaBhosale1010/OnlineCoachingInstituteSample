@@ -18,9 +18,8 @@
         android:id="@+id/txtQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"/>
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -29,22 +28,22 @@
         android:layout_marginTop="20dp">
 
         <RadioButton
-            android:id="@+id/radioA"
+            android:id="@+id/rbOptionA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
-            android:id="@+id/radioB"
+            android:id="@+id/rbOptionB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
-            android:id="@+id/radioC"
+            android:id="@+id/rbOptionC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
-            android:id="@+id/radioD"
+            android:id="@+id/rbOptionD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

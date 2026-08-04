@@ -6,21 +6,24 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.model.Lecture;
+import com.google.android.material.button.MaterialButton;
+
 import java.util.List;
 
-public class LectureAdapter extends RecyclerView.Adapter<LectureAdapter.ViewHolder>{
-    Context context;
-    List<Lecture> lectureList;
+public class LectureAdapter extends RecyclerView.Adapter<LectureAdapter.ViewHolder> {
 
-    public LectureAdapter(Context context,
-                          List<Lecture> lectureList) {
+    private Context context;
+    private List<Lecture> lectureList;
 
+    public LectureAdapter(Context context, List<Lecture> lectureList) {
         this.context = context;
         this.lectureList = lectureList;
     }
@@ -46,24 +49,59 @@ public class LectureAdapter extends RecyclerView.Adapter<LectureAdapter.ViewHold
 
         Lecture lecture = lectureList.get(position);
 
-        holder.title.setText(lecture.getTitle());
+        holder.txtTitle.setText(lecture.getTitle());
 
-        holder.description.setText(
-                lecture.getDescription());
+        holder.txtDescription.setText(lecture.getDescription());
 
-        holder.uploadDate.setText(
+        holder.txtOrder.setText(
+                "Lecture " + lecture.getLectureOrder());
+
+        holder.txtDate.setText(
                 "Uploaded : " + lecture.getUploadDate());
 
-        holder.watch.setOnClickListener(v -> {
+//        holder.btnWatch.setOnClickListener(v -> {
+//
+//            String videoUrl = lecture.getVideoUrl();
+//
+//            if (videoUrl == null || videoUrl.isEmpty()) {
+//
+//                Toast.makeText(
+//                        context,
+//                        "Video not available",
+//                        Toast.LENGTH_SHORT
+//                ).show();
+//
+//                return;
+//            }
+//
+//            try {
+//
+//                Intent intent = new Intent(
+//                        Intent.ACTION_VIEW,
+//                        Uri.parse(videoUrl));
+//
+//                context.startActivity(intent);
+//
+//            } catch (Exception e) {
+//
+//                Toast.makeText(
+//                        context,
+//                        "Unable to open video",
+//                        Toast.LENGTH_SHORT
+//                ).show();
+//            }
+//        });
+
+        holder.btnWatch.setOnClickListener(v -> {
 
             Intent intent = new Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(lecture.getVideoUrl()));
+                    Uri.parse(lecture.getVideoUrl())
+            );
 
             context.startActivity(intent);
 
         });
-
     }
 
     @Override
@@ -71,20 +109,27 @@ public class LectureAdapter extends RecyclerView.Adapter<LectureAdapter.ViewHold
         return lectureList.size();
     }
 
-    public static class ViewHolder
-            extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, description, uploadDate;
-        Button watch;
+        TextView txtTitle;
+        TextView txtDescription;
+        TextView txtOrder;
+        TextView txtDate;
+
+        MaterialButton btnWatch;
 
         public ViewHolder(@NonNull View itemView) {
-
             super(itemView);
 
-            title = itemView.findViewById(R.id.txtTitle);
-            description = itemView.findViewById(R.id.txtDescription);
-            uploadDate = itemView.findViewById(R.id.txtUploadDate);
-            watch = itemView.findViewById(R.id.btnWatch);
+            txtTitle = itemView.findViewById(R.id.txtLectureTitle);
+
+            txtDescription = itemView.findViewById(R.id.txtLectureDescription);
+
+            txtOrder = itemView.findViewById(R.id.txtLectureOrder);
+
+            txtDate = itemView.findViewById(R.id.txtUploadDate);
+
+            btnWatch = itemView.findViewById(R.id.btnWatchLecture);
         }
     }
 }

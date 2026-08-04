@@ -8,7 +8,10 @@ public class Lecture {
     private String videoUrl;
     private Integer lectureOrder;
     private String uploadDate;
+    private Course course;
 
+    public Lecture() {
+    }
     public Long getLectureId() {
         return lectureId;
     }
@@ -55,5 +58,13 @@ public class Lecture {
 
     public void setUploadDate(String uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

@@ -14,10 +14,10 @@ public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    @Column(name = " enroll_id")
+    @Column(name = "enroll_id")
     private Long enrollId;
 
-    @Column(name = " enroll_date")
+    @Column(name = "enroll_date")
     private LocalDate enrollDate;
 
     private String status;
