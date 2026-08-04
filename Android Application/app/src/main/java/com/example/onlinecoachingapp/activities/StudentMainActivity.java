@@ -13,7 +13,6 @@ import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.fragments.CourseFragment;
 import com.example.onlinecoachingapp.fragments.HomeFragment;
 import com.example.onlinecoachingapp.fragments.MyCourseFragment;
-import com.example.onlinecoachingapp.fragments.MessageFragment;
 import com.example.onlinecoachingapp.fragments.ProfileFragment;
 import com.example.onlinecoachingapp.session.SessionManager;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -99,7 +98,7 @@ public class StudentMainActivity extends AppCompatActivity implements Navigation
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frameLayout, fragment)
+                .replace(R.id.fragment_container, fragment)
                 .commit();
 
         drawerLayout.closeDrawers();
@@ -125,10 +124,13 @@ public class StudentMainActivity extends AppCompatActivity implements Navigation
             toolbar.setTitle("My Courses");
             loadFragment(new MyCourseFragment());
 
-        } else if (id == R.id.nav_messages) {
+        }  else if (id == R.id.nav_messages) {
 
-            toolbar.setTitle("Messages");
-            loadFragment(new MessageFragment());
+        Intent intent = new Intent(
+                StudentMainActivity.this,
+                MessageActivity.class);
+
+        startActivity(intent);
 
         } else if (id == R.id.nav_profile) {
 

@@ -8,6 +8,8 @@ import com.example.onlinecoachingapp.model.DashboardResponse;
 import com.example.onlinecoachingapp.model.Enrollment;
 import com.example.onlinecoachingapp.model.Lecture;
 import com.example.onlinecoachingapp.model.LoginRequest;
+import com.example.onlinecoachingapp.model.Message;
+import com.example.onlinecoachingapp.model.MessageRequest;
 import com.example.onlinecoachingapp.model.Quiz;
 import com.example.onlinecoachingapp.model.QuizAnswer;
 import com.example.onlinecoachingapp.model.QuizAttempt;
@@ -107,4 +109,13 @@ public interface ApiService {
     @POST("api/results")
     Call<ApiResponse<QuizResult>> saveQuizResult(
             @Body QuizResultDto quizResultDto);
+
+    @GET("api/messages/chat/{user1}/{user2}")
+    Call<List<Message>> getConversation(
+            @Path("user1") Long user1,
+            @Path("user2") Long user2);
+
+    @POST("api/messages")
+    Call<ApiResponse<Message>> sendMessage(
+            @Body MessageRequest request);
 }

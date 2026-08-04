@@ -36,6 +36,12 @@ public class MessageController {
                                 "Message Sent Successfully",
                                 message));
     }
+    
+    @GetMapping("/chat/{user1}/{user2}")
+    public List<Message> getConversation(@PathVariable Long user1,@PathVariable Long user2){
+
+        return service.getConversation(user1,user2);
+    }
 
     @GetMapping("/inbox/{userId}")
     public List<Message> inbox(@PathVariable Long userId){

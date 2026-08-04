@@ -1,22 +1,28 @@
 package com.example.onlinecoachingapp.adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.onlinecoachingapp.session.SessionManager;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.model.Message;
 import java.util.List;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
+public class MessageAdapter
+        extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     private Context context;
     private List<Message> messageList;
 
-    public MessageAdapter(Context context, List<Message> messageList) {
+    public MessageAdapter(Context context,
+                          List<Message> messageList) {
+
         this.context = context;
         this.messageList = messageList;
     }
@@ -28,7 +34,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             int viewType) {
 
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_message,
+                .inflate(R.layout.item_chat_message,
                         parent,
                         false);
 
@@ -43,13 +49,37 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Message message = messageList.get(position);
 
         holder.txtSender.setText(
-                "From : " + message.getSender().getName());
+                message.getSender().getName());
 
         holder.txtMessage.setText(
                 message.getMessage());
 
-        holder.txtDate.setText(
+        holder.txtTime.setText(
                 message.getSentAt());
+
+        SessionManager session =
+                new SessionManager(context);
+
+        Long myId = session.getUserId();
+
+        if (message.getSender().getUserId().equals(myId)) {
+
+            holder.chatBubble.setBackgroundResource(
+                    R.drawable.bg_message_right);
+
+            ((LinearLayout) holder.chatBubble.getParent())
+                    .setGravity(Gravity.END);
+
+        } else {
+
+            holder.chatBubble.setBackgroundResource(
+                    R.drawable.bg_message_left);
+
+            ((LinearLayout) holder.chatBubble.getParent())
+                    .setGravity(Gravity.START);
+
+        }
+
     }
 
     @Override
@@ -57,18 +87,21 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return messageList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder
+            extends RecyclerView.ViewHolder {
 
         TextView txtSender;
         TextView txtMessage;
-        TextView txtDate;
+        TextView txtTime;
+        LinearLayout chatBubble;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtSender = itemView.findViewById(R.id.txtSender);
             txtMessage = itemView.findViewById(R.id.txtMessage);
-            txtDate = itemView.findViewById(R.id.txtDate);
+            txtTime = itemView.findViewById(R.id.txtTime);
+            chatBubble = itemView.findViewById(R.id.chatBubble);
         }
     }
 }
