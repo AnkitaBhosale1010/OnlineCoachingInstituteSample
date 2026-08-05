@@ -105,6 +105,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     AuthResponse auth = response.body().getData();
 
+                    Log.d("LOGIN", "Role = " + auth.getRole());
+                    Log.d("LOGIN", "UserId = " + auth.getUserId());
+                    Log.d("LOGIN", "StudentId = " + auth.getStudentId());
+                    Log.d("LOGIN", "TeacherId = " + auth.getTeacherId());
+
                     sessionManager.saveUser(
                             auth.getUserId(),
                             auth.getToken(),
@@ -113,20 +118,41 @@ public class LoginActivity extends AppCompatActivity {
                             auth.getRole()
                     );
 
-                    sessionManager.saveStudentId(auth.getStudentId());
-
-                    Log.d("LOGIN", "User ID = " + auth.getUserId());
-                    Log.d("LOGIN", "Student ID = " + auth.getStudentId());
-                    Log.d("LOGIN", "Token = " + auth.getToken());
-
                     Toast.makeText(LoginActivity.this,
                             "Login Successful",
                             Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(LoginActivity.this, StudentMainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (auth.getRole().equalsIgnoreCase("STUDENT")) {
 
+                        sessionManager.saveStudentId(auth.getStudentId());
+
+                        startActivity(new Intent(
+                                LoginActivity.this,
+                                StudentMainActivity.class));
+
+                    }
+                    else if (auth.getRole().equalsIgnoreCase("TEACHER")) {
+
+                        if (auth.getTeacherId() != null) {
+                            sessionManager.saveTeacherId(auth.getTeacherId());
+                        } else {
+                            Log.e("LOGIN", "TeacherId is NULL");
+                        }
+
+                        startActivity(new Intent(
+                                LoginActivity.this,
+                                TeacherMainActivity.class));
+
+                    }
+                    else if (auth.getRole().equalsIgnoreCase("ADMIN")) {
+
+                        startActivity(new Intent(
+                                LoginActivity.this,
+                                AdminMainActivity.class));
+
+                    }
+
+                    finish();
                 } else {
 
                     Toast.makeText(LoginActivity.this,

@@ -19,6 +19,8 @@ import com.example.onlinecoachingapp.model.QuizResultDto;
 import com.example.onlinecoachingapp.model.RegisterRequest;
 import com.example.onlinecoachingapp.model.StudyMaterial;
 import com.example.onlinecoachingapp.model.Submission;
+import com.example.onlinecoachingapp.model.TeacherDashboardResponse;
+
 import java.util.List;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -41,6 +43,11 @@ public interface ApiService {
     @GET("api/students/dashboard/{studentId}")
     Call<DashboardResponse> getDashboard(
             @Path("studentId") Long studentId
+    );
+
+    @GET("api/teachers/dashboard/{teacherId}")
+    Call<TeacherDashboardResponse> getTeacherDashboard(
+            @Path("teacherId") Long teacherId
     );
 
     @GET("api/courses")

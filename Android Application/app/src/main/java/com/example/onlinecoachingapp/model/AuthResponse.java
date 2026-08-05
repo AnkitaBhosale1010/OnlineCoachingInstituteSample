@@ -3,6 +3,7 @@ package com.example.onlinecoachingapp.model;
 public class AuthResponse {
     private Long userId;
     private Long studentId;
+    private Long teacherId;
     private String token;
     private String name;
     private String email;
@@ -57,5 +58,13 @@ public class AuthResponse {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 }
