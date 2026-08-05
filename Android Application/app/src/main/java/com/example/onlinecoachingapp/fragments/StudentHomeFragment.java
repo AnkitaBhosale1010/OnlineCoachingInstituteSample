@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 
 
-public class HomeFragment extends Fragment {
+public class StudentHomeFragment extends Fragment {
 
 
     private MaterialButton btnMyCourses;
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
 
 
         View view = inflater.inflate(
-                R.layout.fragment_home,
+                R.layout.fragment_student_home,
                 container,
                 false
         );

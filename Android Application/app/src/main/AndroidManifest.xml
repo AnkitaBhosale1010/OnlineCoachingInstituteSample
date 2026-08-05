@@ -22,10 +22,28 @@
         android:theme="@style/Theme.OnlineCoachingApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.MyCoursesActivity"
+            android:name=".activities.AdminProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ReportsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ManageBatchesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ManageCoursesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ManageTeachersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ManageStudentsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.TeacherProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MyCoursesActivity"
             android:exported="false" />
         <activity
             android:name=".activities.StudentListActivity"
