@@ -11,7 +11,9 @@ public class AuthResponse {
 
 	private Long userId;
 	
-	private Long studentId; 
+	private Long studentId;
+	
+	private Long teacherId;
 	
     private String token;
     

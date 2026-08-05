@@ -5,11 +5,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.coaching.JwtUtil;
 import com.coaching.dao.StudentDao;
+import com.coaching.dao.TeacherDao;
 import com.coaching.dao.UserDao;
 import com.coaching.dto.AuthResponse;
 import com.coaching.dto.LoginRequest;
 import com.coaching.dto.RegisterRequest;
 import com.coaching.entity.Student;
+import com.coaching.entity.Teacher;
 import com.coaching.entity.User;
 import com.coaching.exception.DuplicateResourceException;
 import com.coaching.exception.ResourceNotFoundException;
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthService {
 
     private final UserDao userDao;
+    private final TeacherDao teacherDao;
     private final StudentDao studentDao;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
@@ -70,21 +73,38 @@ public class AuthService {
                 user.getRole());
 
         Long studentId = null;
-
+        Long teacherId = null;
+        
         if (request.getRole().equalsIgnoreCase("STUDENT")) {
             Student student = studentDao.findByUserUserId(user.getUserId())
                     .orElseThrow(() -> new RuntimeException("Student not found"));
 
             studentId = student.getStudentId();
         }
+        if (request.getRole().equalsIgnoreCase("TEACHER")) {
+
+            Teacher teacher = new Teacher();
+
+            teacher.setUser(user);
+            teacher.setExpertise("");
+            teacher.setQualification("");
+            teacher.setPhone("");
+            teacher.setJoinDate(LocalDate.now());
+
+            teacher = teacherDao.save(teacher);
+
+            teacherId = teacher.getTeacherId();
+        }
 
         return new AuthResponse(
-                user.getUserId(),
-                studentId,
-                token,
-                user.getName(),
-                user.getEmail(),
-                user.getRole());
+        	    user.getUserId(),
+        	    studentId,
+        	    teacherId,
+        	    token,
+        	    user.getName(),
+        	    user.getEmail(),
+        	    user.getRole()
+        	);
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -114,8 +134,9 @@ public class AuthService {
     	            user.getRole());
 
     	    Long studentId = null;
+    	    Long teacherId = null;
 
-    	    if(user.getRole().equalsIgnoreCase("STUDENT")){
+    	    if (user.getRole().equalsIgnoreCase("STUDENT")) {
 
     	        Student student = studentDao.findByUserUserId(user.getUserId())
     	                .orElseThrow(() ->
@@ -124,10 +145,20 @@ public class AuthService {
     	        studentId = student.getStudentId();
     	    }
 
+    	    if (user.getRole().equalsIgnoreCase("TEACHER")) {
+
+    	        Teacher teacher = teacherDao.findByUserUserId(user.getUserId())
+    	                .orElseThrow(() ->
+    	                        new ResourceNotFoundException("Teacher not found"));
+
+    	        teacherId = teacher.getTeacherId();
+    	    }
+
     	    AuthResponse response = new AuthResponse();
 
     	    response.setUserId(user.getUserId());
     	    response.setStudentId(studentId);
+    	    response.setTeacherId(teacherId);
     	    response.setToken(token);
     	    response.setName(user.getName());
     	    response.setEmail(user.getEmail());

@@ -3,9 +3,13 @@ package com.coaching.dao;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.coaching.entity.Student;
 import com.coaching.entity.Teacher;
 
 public interface TeacherDao extends JpaRepository<Teacher, Long>{
 	 
 	List<Teacher> findByExpertiseContainingIgnoreCase(String expertise);
+
+	 Optional<Teacher> findByUserUserId(Long userId);
 }

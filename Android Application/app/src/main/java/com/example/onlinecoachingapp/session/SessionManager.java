@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class SessionManager {
     private static final String PREF_NAME = "OnlineCoachingApp";
     private static final String KEY_STUDENT_ID = "studentId";
+    private static final String KEY_TEACHER_ID="teacherId";
     private static final String KEY_TOKEN = "token";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
@@ -28,6 +29,16 @@ public class SessionManager {
         editor.apply();
     }
 
+    //Save Teacher ID
+    public void saveTeacherId(Long teacherId){
+
+        if (teacherId != null) {
+            editor.putLong(KEY_TEACHER_ID, teacherId);
+            editor.apply();
+        }
+
+    }
+
     //Get Student ID
     public Long getStudentId(){
 
@@ -41,6 +52,18 @@ public class SessionManager {
             return null;
 
         return id;
+    }
+
+    //Get Teacher ID
+    public Long getTeacherId(){
+
+        long id=preferences.getLong(KEY_TEACHER_ID,-1);
+
+        if(id==-1)
+            return null;
+
+        return id;
+
     }
 
     // Save User Details
@@ -106,6 +129,7 @@ public class SessionManager {
     }
 
     public void clearSession() {
-
+        editor.clear();
+        editor.apply();
     }
 }
