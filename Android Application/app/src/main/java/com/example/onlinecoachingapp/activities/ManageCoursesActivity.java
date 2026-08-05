@@ -10,11 +10,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.onlinecoachingapp.R;
 
-public class TeacherProfileActivity extends AppCompatActivity {
+public class ManageCoursesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_profile);
+        setContentView(R.layout.activity_manage_courses);
     }
 }

@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Welcome Teacher"
+                    android:text="Welcome Admin"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -54,6 +54,80 @@
             android:layout_marginTop="16dp"
             android:columnCount="2"
             android:useDefaultMargins="true">
+
+            <!-- Students -->
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/ic_student" />
+
+                    <TextView
+                        android:id="@+id/txtStudents"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Students" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Teachers -->
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/ic_teacher" />
+
+                    <TextView
+                        android:id="@+id/txtTeachers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teachers" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Courses -->
 
@@ -73,26 +147,26 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/ic_course"/>
+                        android:src="@drawable/ic_course" />
 
                     <TextView
-                        android:id="@+id/txtTotalCourses"
+                        android:id="@+id/txtCourses"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textSize="28sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Courses"/>
+                        android:text="Courses" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Lectures -->
+            <!-- Batches -->
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
@@ -110,94 +184,20 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/ic_video"/>
+                        android:src="@drawable/ic_batch" />
 
                     <TextView
-                        android:id="@+id/txtTotalLectures"
+                        android:id="@+id/txtBatches"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textSize="28sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lectures"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Assignments -->
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/ic_assignment"/>
-
-                    <TextView
-                        android:id="@+id/txtAssignments"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Assignments"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Quizzes -->
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/ic_quiz"/>
-
-                    <TextView
-                        android:id="@+id/txtQuizzes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Quizzes"/>
+                        android:text="Batches" />
 
                 </LinearLayout>
 
@@ -213,47 +213,47 @@
             android:layout_marginTop="24dp"
             android:text="Quick Actions"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCreateCourse"
+            android:id="@+id/btnStudents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Create Course"
-            app:icon="@drawable/ic_course"/>
+            android:text="Manage Students"
+            app:icon="@drawable/ic_student" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUploadLecture"
+            android:id="@+id/btnTeachers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Upload Lecture"
-            app:icon="@drawable/ic_video"/>
+            android:text="Manage Teachers"
+            app:icon="@drawable/ic_teacher" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnStudyMaterial"
+            android:id="@+id/btnCourses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Upload Study Material"
-            app:icon="@drawable/ic_description"/>
+            android:text="Manage Courses"
+            app:icon="@drawable/ic_course" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAssignment"
+            android:id="@+id/btnBatches"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Create Assignment"
-            app:icon="@drawable/ic_assignment"/>
+            android:text="Manage Batches"
+            app:icon="@drawable/ic_batch" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnQuiz"
+            android:id="@+id/btnReports"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Create Quiz"
-            app:icon="@drawable/ic_quiz"/>
+            android:text="Reports"
+            app:icon="@drawable/ic_report" />
 
     </LinearLayout>
 

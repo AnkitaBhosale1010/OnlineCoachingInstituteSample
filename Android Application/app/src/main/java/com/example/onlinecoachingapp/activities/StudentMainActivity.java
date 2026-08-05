@@ -11,7 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.fragments.CourseFragment;
-import com.example.onlinecoachingapp.fragments.HomeFragment;
+import com.example.onlinecoachingapp.fragments.StudentHomeFragment;
 import com.example.onlinecoachingapp.fragments.MyCourseFragment;
 import com.example.onlinecoachingapp.fragments.ProfileFragment;
 import com.example.onlinecoachingapp.session.SessionManager;
@@ -46,7 +46,7 @@ public class StudentMainActivity extends AppCompatActivity implements Navigation
         loadHeaderData();
 
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            loadFragment(new StudentHomeFragment());
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
@@ -112,7 +112,7 @@ public class StudentMainActivity extends AppCompatActivity implements Navigation
         if (id == R.id.nav_home) {
 
             toolbar.setTitle("Home");
-            loadFragment(new HomeFragment());
+            loadFragment(new StudentHomeFragment());
 
         } else if (id == R.id.nav_courses) {
 
