@@ -143,3 +143,8 @@ vite.config.ts.timestamp-*
 .vite/
 Android Application/app/build/ 
 .idea/ 
+
+# Java compiled files
+bin/
+target/
+*.class
