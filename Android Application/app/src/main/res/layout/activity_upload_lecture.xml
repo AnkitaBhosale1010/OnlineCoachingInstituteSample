@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lecture Title"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"/>
+
+        <EditText
+            android:id="@+id/etVideoUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="YouTube / Video URL"/>
+
+        <EditText
+            android:id="@+id/etOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lecture Order"
+            android:inputType="number"/>
+
+        <Button
+            android:id="@+id/btnUploadLecture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Lecture"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

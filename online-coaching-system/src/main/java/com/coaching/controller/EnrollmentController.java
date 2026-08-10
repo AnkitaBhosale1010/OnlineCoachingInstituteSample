@@ -1,0 +1,72 @@
+package com.coaching.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.coaching.entity.ApiResponse;
+import com.coaching.entity.Enrollment;
+import com.coaching.entity.Student;
+import com.coaching.service.EnrollmentService;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/enrollments")
+@RequiredArgsConstructor
+@CrossOrigin("*")
+public class EnrollmentController {
+	
+	private final EnrollmentService enrollmentService;
+
+    @PostMapping("/student/{studentId}/course/{courseId}")
+    public ResponseEntity<ApiResponse<Enrollment>> enrollStudent(
+            @PathVariable Long studentId,
+            @PathVariable Long courseId) {
+
+    	Enrollment enrollment =enrollmentService.enrollStudent(studentId,courseId);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        new ApiResponse<>(
+                                true,
+                                "Enrollment Successful",
+                                enrollment));
+    }
+
+    @GetMapping
+    public List<Enrollment> getAllEnrollments() {
+        return enrollmentService.getAllEnrollments();
+    }
+
+    @GetMapping("/student/{studentId}")
+    public List<Enrollment> getStudentEnrollments(
+            @PathVariable Long studentId) {
+
+        return enrollmentService
+                .getStudentEnrollments(studentId);
+    }
+
+    @GetMapping("/course/{courseId}")
+    public List<Student> getCourseStudents(
+            @PathVariable Long courseId) {
+
+        return enrollmentService.getCourseStudents(courseId);
+    }
+
+    @PutMapping("/cancel/{enrollId}")
+    public String cancelEnrollment(
+            @PathVariable Long enrollId) {
+
+        enrollmentService.cancelEnrollment(enrollId);
+
+        return "Enrollment Cancelled";
+    }
+}

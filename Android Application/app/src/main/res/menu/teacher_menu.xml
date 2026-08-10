@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/teacher_home"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/teacher_create_course"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="Create Course"/>
+
+    <item
+        android:id="@+id/teacher_courses"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="All Courses"/>
+
+
+
+    <item
+        android:id="@+id/teacher_course_management"
+        android:title="Course Management"
+        android:icon="@drawable/ic_course">
+
+        <menu>
+
+            <item
+                android:id="@+id/teacher_assignment"
+                android:title="Assignments"
+                android:icon="@drawable/ic_assignment"/>
+
+            <item
+                android:id="@+id/teacher_lecture"
+                android:title="Lectures"
+                android:icon="@drawable/ic_video"/>
+
+            <item
+                android:id="@+id/teacher_material"
+                android:title="Study Materials"
+                android:icon="@drawable/ic_study_material"/>
+
+            <item
+                android:id="@+id/teacher_quiz"
+                android:title="Quizzes"
+                android:icon="@drawable/ic_quiz"/>
+
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/teacher_students"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Students"/>
+
+    <item
+        android:id="@+id/teacher_profile"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Profile"/>
+
+    <item
+        android:id="@+id/teacher_logout"
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:title="Logout"/>
+
+</menu>

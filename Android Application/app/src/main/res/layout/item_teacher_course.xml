@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Java Programming"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_more"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Course Description"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="6dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/txtDuration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Duration : 3 Months"/>
+
+            <TextView
+                android:id="@+id/txtLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beginner"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹5000"
+            android:textColor="@android:color/holo_green_dark"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

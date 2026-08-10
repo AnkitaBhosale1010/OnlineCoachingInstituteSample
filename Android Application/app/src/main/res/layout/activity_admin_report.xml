@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F6FA">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Admin Report"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:elevation="4dp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Students"
+                    android:textSize="16sp"
+                    android:textColor="#555555" />
+
+                <TextView
+                    android:id="@+id/txtTotalStudents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:elevation="4dp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Teachers"
+                    android:textSize="16sp"
+                    android:textColor="#555555" />
+
+                <TextView
+                    android:id="@+id/txtTotalTeachers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:elevation="4dp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Courses"
+                    android:textSize="16sp"
+                    android:textColor="#555555" />
+
+                <TextView
+                    android:id="@+id/txtTotalCourses"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:elevation="4dp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Batches"
+                    android:textSize="16sp"
+                    android:textColor="#555555" />
+
+                <TextView
+                    android:id="@+id/txtTotalBatches"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:elevation="4dp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Enrollments"
+                    android:textSize="16sp"
+                    android:textColor="#555555" />
+
+                <TextView
+                    android:id="@+id/txtTotalEnrollments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:elevation="4dp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quiz Results"
+                    android:textSize="16sp"
+                    android:textColor="#555555" />
+
+                <TextView
+                    android:id="@+id/txtTotalQuizResults"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:elevation="4dp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Assignment Submissions"
+                    android:textSize="16sp"
+                    android:textColor="#555555" />
+
+                <TextView
+                    android:id="@+id/txtTotalSubmissions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
