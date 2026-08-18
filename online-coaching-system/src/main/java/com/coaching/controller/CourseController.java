@@ -1,7 +1,6 @@
 package com.coaching.controller;
 
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.coaching.dto.CourseRequest;
 import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Course;
 import com.coaching.service.CourseService;
@@ -49,15 +48,15 @@ public class CourseController {
 	    @PostMapping("/teacher/{teacherId}")
 	    public ResponseEntity<ApiResponse<Course>> addCourse(
 	            @PathVariable Long teacherId,
-	            @RequestBody Course course) {
+	            @RequestBody CourseRequest request) {
 
-	    	Course saved = courseService.createCourse(course,teacherId);
+	        Course saved = courseService.createCourse(request, teacherId);
 
 	        return ResponseEntity.status(HttpStatus.CREATED)
 	                .body(new ApiResponse<>(
-	                                true,
-	                                "Course Created Successfully",
-	                                saved));
+	                        true,
+	                        "Course Created Successfully",
+	                        saved));
 	    }
 
 	    @PutMapping("/{id}")
@@ -90,10 +89,15 @@ public class CourseController {
 	    }
 
 	    @GetMapping("/teacher/{teacherId}")
-	    public List<Course> getTeacherCourses(
+	    public ResponseEntity<ApiResponse<List<Course>>> getTeacherCourses(
 	            @PathVariable Long teacherId) {
 
-	        return courseService
-	                .getTeacherCourses(teacherId);
+	        return ResponseEntity.ok(
+	                new ApiResponse<>(
+	                        true,
+	                        "Teacher Courses",
+	                        courseService.getTeacherCourses(teacherId)
+	                )
+	        );
 	    }
 }

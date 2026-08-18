@@ -51,6 +51,14 @@ public class StudyMaterialController {
 	            @RequestParam("file") MultipartFile file
 	    ){
 
+		 StudyMaterial material=new StudyMaterial();
+
+		 material.setTitle(title);
+
+		 material.setFileUrl(file.getOriginalFilename());
+
+		 StudyMaterial saved =materialService.uploadMaterial(courseId,material);
+		 
 	        return ResponseEntity.ok("Upload Success");
 	    }
     

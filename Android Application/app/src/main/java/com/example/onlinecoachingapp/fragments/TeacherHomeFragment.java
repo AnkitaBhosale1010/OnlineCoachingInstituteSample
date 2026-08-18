@@ -1,17 +1,18 @@
 package com.example.onlinecoachingapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.onlinecoachingapp.R;
+import com.example.onlinecoachingapp.activities.CreateCourseActivity;
+import com.example.onlinecoachingapp.activities.MyCoursesActivity;
 import com.example.onlinecoachingapp.session.SessionManager;
 
 public class TeacherHomeFragment extends Fragment {
@@ -65,6 +66,16 @@ public class TeacherHomeFragment extends Fragment {
         txtTotalLectures.setText("0");
         txtAssignments.setText("0");
         txtQuizzes.setText("0");
+
+        btnCreateCourse.setOnClickListener(v -> {
+
+            Intent intent = new Intent(
+                    requireContext(),
+                    CreateCourseActivity.class
+            );
+
+            startActivity(intent);
+        });
 
         // Dashboard API will be added in Part 3
 

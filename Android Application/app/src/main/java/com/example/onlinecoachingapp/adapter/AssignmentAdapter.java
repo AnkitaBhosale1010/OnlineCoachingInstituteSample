@@ -28,8 +28,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.Vi
     private Long selectedAssignmentId;
 
     public AssignmentAdapter(Context context,
-                             List<Assignment> assignmentList,
-                             ActivityResultLauncher<Intent> filePickerLauncher) {
+                             List<Assignment> assignmentList) {
 
         this.context = context;
         this.assignmentList = assignmentList;

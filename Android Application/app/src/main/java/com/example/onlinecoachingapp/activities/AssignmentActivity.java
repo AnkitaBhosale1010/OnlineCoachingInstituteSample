@@ -75,8 +75,8 @@ public class AssignmentActivity extends AppCompatActivity {
 
                             adapter = new AssignmentAdapter(
                                     AssignmentActivity.this,
-                                    response.body(),
-                                    filePickerLauncher);
+                                    response.body()
+                            );
 
                             recyclerAssignments.setAdapter(adapter);
 

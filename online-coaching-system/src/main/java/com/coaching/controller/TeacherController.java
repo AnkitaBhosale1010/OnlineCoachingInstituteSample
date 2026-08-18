@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.coaching.dto.CourseRequest;
+import com.coaching.dto.LectureRequest;
 import com.coaching.dto.TeacherRequest;
 import com.coaching.entity.ApiResponse;
+import com.coaching.entity.Course;
 import com.coaching.entity.Teacher;
 import com.coaching.service.TeacherService;
 
@@ -42,7 +45,20 @@ public class TeacherController {
 	                                "Teacher Created Successfully",
 	                                teacher));
 	    }
+	    @GetMapping("/{teacherId}/courses")
+	    public ResponseEntity<ApiResponse<List<Course>>> getTeacherCourses(
+	            @PathVariable Long teacherId) {
 
+	        List<Course> courses = teacherService.getTeacherCourses(teacherId);
+
+	        return ResponseEntity.ok(
+	                new ApiResponse<>(
+	                        true,
+	                        "Teacher Courses",
+	                        courses
+	                )
+	        );
+	    }
 	    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
 	    @GetMapping
 	    public List<Teacher> getAllTeachers(){
@@ -62,5 +78,19 @@ public class TeacherController {
 	            @RequestParam String expertise) {
 
 	        return teacherService.searchTeacher(expertise);
+	    }
+	    
+	    @PostMapping("/lecture")
+	    public ResponseEntity<ApiResponse<String>> uploadLecture(
+	            @RequestBody LectureRequest request){
+
+	        teacherService.uploadLecture(request);
+
+	        return ResponseEntity.ok(
+	                new ApiResponse<>(
+	                        true,
+	                        "Lecture Uploaded Successfully",
+	                        null
+	                ));
 	    }
 }

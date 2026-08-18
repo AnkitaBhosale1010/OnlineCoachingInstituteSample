@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.coaching.dao.AssignmentDao;
+import com.coaching.dao.AssignmentRequest;
 import com.coaching.dao.CourseDao;
 import com.coaching.entity.Assignment;
 import com.coaching.entity.Course;
@@ -18,17 +19,29 @@ public class AssignmentService {
 	private final AssignmentDao assignmentDao;
     private final CourseDao courseDao;
 
-    public Assignment createAssignment(Long courseId,Assignment assignment) {
+    public Assignment createAssignment(
+            Long courseId,
+            AssignmentRequest request) {
 
-        Course course =courseDao.findById(courseId).orElseThrow(() ->
-                                new RuntimeException("Course Not Found"));
 
+        Course course =
+        		courseDao.findById(courseId)
+                .orElseThrow(
+                    () -> new RuntimeException("Course not found")
+                );
+
+
+        Assignment assignment = new Assignment();
+
+        assignment.setTitle(request.getTitle());
+        assignment.setDescription(request.getDescription());
+        assignment.setDeadline(request.getDeadline());
+        assignment.setTotalMarks(request.getMarks());
         assignment.setCourse(course);
-        assignment.setCreatedDate(LocalDate.now());
+
 
         return assignmentDao.save(assignment);
     }
-
     public List<Assignment> getCourseAssignments(
             Long courseId) {
 

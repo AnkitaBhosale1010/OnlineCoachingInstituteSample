@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.database.Cursor;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;

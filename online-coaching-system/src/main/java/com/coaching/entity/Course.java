@@ -33,6 +33,9 @@ public class Course {
     @Column(name = "created_date")
     private LocalDate createdDate;
     
+    @Column(name = "status")
+    private String status = "ACTIVE";
+    
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     @JsonIgnore

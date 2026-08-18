@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.coaching.dao.AssignmentRequest;
 import com.coaching.entity.ApiResponse;
 import com.coaching.entity.Assignment;
 import com.coaching.service.AssignmentService;
@@ -27,18 +28,27 @@ public class AssignmentController {
 	private final AssignmentService assignmentService;
 
 	@PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
-    @PostMapping("/course/{courseId}")
-    public ResponseEntity<ApiResponse<Assignment>> createAssignment(@PathVariable Long courseId,@RequestBody Assignment assignment) {
+	@PostMapping("/course/{courseId}")
+	public ResponseEntity<ApiResponse<Assignment>> createAssignment(
+	        @PathVariable Long courseId,
+	        @RequestBody AssignmentRequest request) {
 
-		Assignment saved = assignmentService.createAssignment(courseId,assignment);
+
+	    Assignment saved =assignmentService.createAssignment(
+	                    courseId,
+	                    request
+	            );
+
 
 	    return ResponseEntity.status(HttpStatus.CREATED)
 	            .body(
 	                    new ApiResponse<>(
 	                            true,
 	                            "Assignment Created",
-	                            saved));
-    }
+	                            saved
+	                    )
+	            );
+	}
 
     @GetMapping("/course/{courseId}")
     public List<Assignment> getAssignments(@PathVariable Long courseId) {

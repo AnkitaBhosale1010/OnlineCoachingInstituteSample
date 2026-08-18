@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
 import com.example.onlinecoachingapp.R;
 import com.example.onlinecoachingapp.fragments.TeacherHomeFragment;
 import com.example.onlinecoachingapp.session.SessionManager;
@@ -161,7 +159,7 @@ public class TeacherMainActivity extends AppCompatActivity
 
             startActivity(new Intent(
                     TeacherMainActivity.this,
-                    AssignmentActivity.class));
+                    CreateAssignmentActivity.class));
 
         }
 
@@ -169,7 +167,7 @@ public class TeacherMainActivity extends AppCompatActivity
 
             startActivity(new Intent(
                     TeacherMainActivity.this,
-                    QuizActivity.class));
+                    CreateQuizActivity.class));
 
         }
 
@@ -177,7 +175,7 @@ public class TeacherMainActivity extends AppCompatActivity
 
             startActivity(new Intent(
                     TeacherMainActivity.this,
-                    StudentListActivity.class));
+                    StudentsActivity.class));
 
         }
 
