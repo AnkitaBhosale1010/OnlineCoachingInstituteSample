@@ -10,7 +10,7 @@
     <item
         android:id="@+id/teacher_courses"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="All Courses"/>
+        android:title="My Courses"/>
 
     <item
         android:id="@+id/teacher_create_course"

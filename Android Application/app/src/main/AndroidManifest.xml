@@ -22,6 +22,24 @@
         android:theme="@style/Theme.OnlineCoachingApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.TeacherAssignmentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.TeacherStudyMaterialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.EditCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.StudentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CreateQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CreateAssignmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AdminProfileActivity"
             android:exported="false" />
         <activity

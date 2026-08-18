@@ -2,11 +2,14 @@ package com.example.onlinecoachingapp.api;
 
 import com.example.onlinecoachingapp.model.ApiResponse;
 import com.example.onlinecoachingapp.model.Assignment;
+import com.example.onlinecoachingapp.model.AssignmentRequest;
 import com.example.onlinecoachingapp.model.AuthResponse;
 import com.example.onlinecoachingapp.model.Course;
+import com.example.onlinecoachingapp.model.CourseRequest;
 import com.example.onlinecoachingapp.model.DashboardResponse;
 import com.example.onlinecoachingapp.model.Enrollment;
 import com.example.onlinecoachingapp.model.Lecture;
+import com.example.onlinecoachingapp.model.LectureRequest;
 import com.example.onlinecoachingapp.model.LoginRequest;
 import com.example.onlinecoachingapp.model.Message;
 import com.example.onlinecoachingapp.model.MessageRequest;
@@ -26,9 +29,11 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -125,4 +130,59 @@ public interface ApiService {
     @POST("api/messages")
     Call<ApiResponse<Message>> sendMessage(
             @Body MessageRequest request);
+
+    @POST("api/courses/teacher/{teacherId}")
+    Call<ApiResponse<Course>> createCourse(
+            @Path("teacherId") Long teacherId,
+            @Body CourseRequest request
+    );
+
+    @POST("api/teachers/lecture")
+    Call<ApiResponse<String>> uploadLecture(
+            @Body LectureRequest request
+    );
+
+    @GET("api/teachers/{teacherId}/courses")
+    Call<ApiResponse<List<Course>>> getTeacherCourses(
+            @Path("teacherId") Long teacherId
+    );
+
+    @PUT("api/courses/{id}")
+    Call<Course> updateCourse(
+            @Path("id") Long courseId,
+            @Body Course course
+    );
+
+    @Multipart
+    @POST("api/materials/upload")
+    Call<String> uploadStudyMaterial(
+
+            @Part("title") RequestBody title,
+
+            @Part("courseId") RequestBody courseId,
+
+            @Part MultipartBody.Part file
+    );
+
+    @GET("api/materials/course/{courseId}")
+    Call<ApiResponse<List<StudyMaterial>>> getMaterials(
+            @Path("courseId") Long courseId
+    );
+
+    @DELETE("api/materials/{id}")
+    Call<String> deleteMaterial(
+            @Path("id") Long id
+    );
+
+    @POST("api/assignments/course/{courseId}")
+    Call<ApiResponse<Assignment>> createAssignment(
+            @Path("courseId") Long courseId,
+            @Body AssignmentRequest  request
+    );
+
+    @DELETE("api/assignments/{id}")
+    Call<String> deleteAssignment(
+
+            @Path("id") Long id
+    );
 }

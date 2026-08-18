@@ -1,8 +1,7 @@
 package com.example.onlinecoachingapp.activities;
 
-import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,173 +13,179 @@ import com.example.onlinecoachingapp.api.ApiClient;
 import com.example.onlinecoachingapp.api.ApiService;
 import com.example.onlinecoachingapp.model.ApiResponse;
 import com.example.onlinecoachingapp.model.Assignment;
-
-import java.util.Calendar;
+import com.example.onlinecoachingapp.model.AssignmentRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class CreateAssignmentActivity extends AppCompatActivity {
 
-    private EditText etTitle;
-    private EditText etDescription;
-    private EditText etDeadline;
-    private EditText etTotalMarks;
 
-    private Button btnCreate;
+    EditText edtTitle, edtDescription, edtDeadline, edtMarks;
+    Button btnCreate;
 
-    private ApiService apiService;
+    ApiService apiService;
 
-    private ProgressDialog progressDialog;
+    Long courseId;
 
-    private Long courseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_assignment);
 
-        initViews();
+
+        edtTitle = findViewById(R.id.edtTitle);
+        edtDescription = findViewById(R.id.edtDescription);
+        edtDeadline = findViewById(R.id.edtDeadline);
+        edtMarks = findViewById(R.id.edtMarks);
+
+        btnCreate = findViewById(R.id.btnCreate);
+
+
+
+        courseId = getIntent()
+                .getLongExtra("courseId", -1);
+
+
+
+        if(courseId == -1){
+
+            Toast.makeText(
+                    this,
+                    "Course ID missing",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            finish();
+            return;
+        }
+
+
 
         apiService = ApiClient
                 .getRetrofitInstance(this)
                 .create(ApiService.class);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Creating Assignment...");
-        progressDialog.setCancelable(false);
 
-        courseId = getIntent().getLongExtra("courseId", -1);
 
-        if (courseId == -1) {
-            Toast.makeText(this,
-                    "Course not selected",
-                    Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
+        btnCreate.setOnClickListener(v -> {
 
-        etDeadline.setOnClickListener(v -> showDatePicker());
 
-        btnCreate.setOnClickListener(v -> createAssignment());
-    }
+            String title = edtTitle.getText()
+                    .toString()
+                    .trim();
 
-    private void initViews() {
+            String description = edtDescription.getText()
+                    .toString()
+                    .trim();
 
-        etTitle = findViewById(R.id.etTitle);
-        etDescription = findViewById(R.id.etDescription);
-        etDeadline = findViewById(R.id.etDeadline);
-        etTotalMarks = findViewById(R.id.etTotalMarks);
+            String deadline = edtDeadline.getText()
+                    .toString()
+                    .trim();
 
-        btnCreate = findViewById(R.id.btnCreate);
-    }
+            String marksText = edtMarks.getText()
+                    .toString()
+                    .trim();
 
-    private void showDatePicker() {
 
-        Calendar calendar = Calendar.getInstance();
 
-        DatePickerDialog dialog = new DatePickerDialog(
-                this,
-                (view, year, month, dayOfMonth) -> {
+            if(title.isEmpty() ||
+                    description.isEmpty() ||
+                    deadline.isEmpty() ||
+                    marksText.isEmpty()){
 
-                    String date = year + "-"
-                            + String.format("%02d", month + 1)
-                            + "-"
-                            + String.format("%02d", dayOfMonth);
 
-                    etDeadline.setText(date);
+                Toast.makeText(
+                        this,
+                        "Fill all fields",
+                        Toast.LENGTH_SHORT
+                ).show();
 
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
+                return;
+            }
 
-        dialog.show();
-    }
 
-    private void createAssignment() {
 
-        String title = etTitle.getText().toString().trim();
-        String description = etDescription.getText().toString().trim();
-        String deadline = etDeadline.getText().toString().trim();
-        String marks = etTotalMarks.getText().toString().trim();
+            AssignmentRequest request =
+                    new AssignmentRequest(
+                            title,
+                            description,
+                            deadline
+                    );
 
-        if (title.isEmpty()) {
-            etTitle.setError("Enter Title");
-            return;
-        }
 
-        if (description.isEmpty()) {
-            etDescription.setError("Enter Description");
-            return;
-        }
 
-        if (deadline.isEmpty()) {
-            etDeadline.setError("Select Deadline");
-            return;
-        }
+            apiService.createAssignment(
+                            courseId,
+                            request
+                    )
+                    .enqueue(new Callback<ApiResponse<Assignment>>() {
 
-        if (marks.isEmpty()) {
-            etTotalMarks.setError("Enter Total Marks");
-            return;
-        }
 
-        Assignment assignment = new Assignment();
+                        @Override
+                        public void onResponse(
+                                Call<ApiResponse<Assignment>> call,
+                                Response<ApiResponse<Assignment>> response) {
 
-        assignment.setTitle(title);
-        assignment.setDescription(description);
-        assignment.setDeadline(deadline);
-        assignment.setTotalMarks(Integer.parseInt(marks));
 
-        progressDialog.show();
+                            Log.e("CREATE_ASSIGNMENT",
+                                    "Code : " + response.code());
 
-        apiService.createAssignment(courseId, assignment)
-                .enqueue(new Callback<ApiResponse<Assignment>>() {
 
-                    @Override
-                    public void onResponse(
-                            Call<ApiResponse<Assignment>> call,
-                            Response<ApiResponse<Assignment>> response) {
+                            if(response.body()!=null){
 
-                        progressDialog.dismiss();
+                                Log.e("CREATE_ASSIGNMENT",
+                                        "Message : " + response.body().getMessage());
+                            }
 
-                        if (response.isSuccessful()
-                                && response.body() != null
-                                && response.body().isSuccess()) {
 
-                            Toast.makeText(
-                                    CreateAssignmentActivity.this,
-                                    response.body().getMessage(),
-                                    Toast.LENGTH_LONG
-                            ).show();
+                            if(response.isSuccessful()){
 
-                            finish();
 
-                        } else {
+                                Toast.makeText(
+                                        CreateAssignmentActivity.this,
+                                        "Assignment Created",
+                                        Toast.LENGTH_SHORT
+                                ).show();
 
-                            Toast.makeText(
-                                    CreateAssignmentActivity.this,
-                                    "Failed to create assignment",
-                                    Toast.LENGTH_LONG
-                            ).show();
+                                finish();
+
+                            }
+                            else{
+
+
+                                Toast.makeText(
+                                        CreateAssignmentActivity.this,
+                                        "Error : "+response.code(),
+                                        Toast.LENGTH_SHORT
+                                ).show();
+
+                            }
+
                         }
-                    }
+                        @Override
+                        public void onFailure(
+                                Call<ApiResponse<Assignment>> call,
+                                Throwable t) {
 
-                    @Override
-                    public void onFailure(
-                            Call<ApiResponse<Assignment>> call,
-                            Throwable t) {
 
-                        progressDialog.dismiss();
+                            Toast.makeText(
+                                    CreateAssignmentActivity.this,
+                                    t.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
 
-                        Toast.makeText(
-                                CreateAssignmentActivity.this,
-                                t.getMessage(),
-                                Toast.LENGTH_LONG
-                        ).show();
-                    }
-                });
+                        }
+
+                    });
+
+
+        });
+
+
     }
+
 }
