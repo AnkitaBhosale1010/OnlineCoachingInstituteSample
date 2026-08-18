@@ -1,10 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ManageBatchesActivity">
+    android:layout_height="match_parent">
+
+
+    <TextView
+
+        android:id="@+id/txtBatchTitle"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Manage Batches"
+
+        android:textSize="22sp"
+
+        android:textStyle="bold"
+
+        android:textColor="@android:color/black"
+
+        android:layout_margin="16dp"
+
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+    <ProgressBar
+
+        android:id="@+id/progressBar"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:visibility="gone"
+
+        app:layout_constraintTop_toBottomOf="@id/txtBatchTitle"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recyclerBatches"
+
+        android:layout_width="0dp"
+
+        android:layout_height="0dp"
+
+
+        android:layout_marginTop="10dp"
+
+        android:padding="8dp"
+
+        android:clipToPadding="false"
+
+
+        app:layout_constraintTop_toBottomOf="@id/txtBatchTitle"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+
+    <LinearLayout
+
+        android:id="@+id/layoutEmpty"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+
+        android:gravity="center"
+
+        android:visibility="gone"
+
+
+        app:layout_constraintTop_toBottomOf="@id/txtBatchTitle"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:text="No Batches Available"
+
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btnAssignStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assign Student To Batch"/>
+
+
+    </LinearLayout>
+
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/fabAddBatch"
+
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+
+        android:layout_margin="20dp"
+
+
+        android:src="@android:drawable/ic_input_add"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
